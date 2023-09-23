@@ -1,0 +1,286 @@
+@import ./reset
+
+body,input,textarea
+  font-family: 'Philosopher', 'Noto Sans TC', sans-serif
+
+.section-header
+  text-align: center
+  letter-spacing: 1px
+  .title-ch
+    font-size: 20px
+    font-weight: 500
+    line-height: 1.5
+  .title-en
+    font-size: 36px
+    line-height: 1.5
+    margin-top: 10px
+  p
+    font-size: 16px
+    font-weight: 300
+    line-height: 1.8
+    margin-top: 10px
+
+.wrap
+  display: flex
+  align-items: flex-start
+  .wish-section
+    position: sticky
+    top: 0
+    flex: 1
+    height: 100vh
+    background: url('../img/wish-background.jpg') no-repeat center / cover
+  main
+    position: relative
+    width: min(100%,420px)
+    min-height: 100vh
+    background-color: #fff
+    box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.25)
+
+header
+  position: relative
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  height: 70px
+  background-color: #fff
+  z-index: 1
+  &.is-active
+    img
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
+      transition: clip-path 1.2s
+  img
+    width: auto
+    height: 30px
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%)
+
+.anchor-bar
+  display: flex
+  height: 45px
+  opacity: 0
+  transform: translate3d(0,-100%,0)
+  &.is-active
+    opacity: 1
+    transform: translate3d(0,0,0)
+    transition: opacity .6s 1.2s, transform .6s 1.2s
+  >li
+    position: relative
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 50%
+    background-color: #F5F5F5
+    cursor: pointer
+    &:first-child
+      &::after
+        content: ''
+        position: absolute
+        left: 0
+        bottom: 0
+        width: 100%
+        height: 2px
+        background-color: #E26262
+        z-index: 1
+    i
+      font-size: 15px
+    .text
+      font-size: 14px
+      font-weight: 500
+      line-height: 1.8
+      letter-spacing: .8px
+      margin-left: 5px
+
+.section-newlywed
+  position: relative
+  &::after
+    content: ''
+    display: block
+    width: 100%
+    height: 0
+    padding-bottom: 114.286%
+  .layer
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+
+.section-message
+  display: flex
+  flex-direction: column
+  height: 100vh
+  padding: 60px 5.333%
+  form
+    flex: 1
+    display: flex
+    flex-direction: column
+    margin-top: 60px
+  .form-row
+    &:not(:first-child)
+      margin-top: 30px
+    &:last-child
+      height: 100%
+      .form-group
+        height: 100%
+        flex-direction: column
+        align-items: flex-start
+  .form-group
+    display: flex
+    flex-wrap: wrap
+    align-items: center
+    padding: 0 20px 10px
+    border-bottom: 1px solid #C4C4C4
+  label
+    display: flex
+    align-items: center
+    margin-right: 20px
+    span
+      font-size: 16px
+      line-height: 1.8
+      letter-spacing: 1px
+      &.en
+        font-weight: 700
+      &.ch
+        font-weight: 500
+        margin-left: 5px
+  input,textarea
+    color: #000
+    font-size: 16px
+    line-height: 1.8
+    letter-spacing: 1px
+    border: none
+    padding: 0
+    &:placeholder
+      color: #545454
+      font-size: 16px
+      font-weight: 300
+  input
+    flex: 1
+  textarea
+    width: 100%
+    height: 210px
+    margin-top: 10px
+    resize: none
+  .btn-group
+    margin-top: 60px
+    .btn
+      width: 180px
+      padding: 15px 30px
+      color: #fff
+      font-size: 14px
+      font-weight: 500
+      line-height: 1.8
+      letter-spacing: .8px
+      text-align: center
+      margin: 0 auto
+      cursor: pointer
+      &:not(:first-child)
+        margin-top: 10px
+      &.submit
+        background-color: #E26262
+      &.view
+        background-color: #BCBCBC
+
+.section-banner
+  position: relative
+  &::after
+    content: ''
+    display: block
+    width: 100%
+    height: 0
+    padding-bottom: 107.143%
+  img
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate3d(-50%,-50%,0)
+    width: 100%
+    height: 100%
+    object-fit: cover  
+
+.section-gallery
+  padding: 50px 0
+  background-color: #F7F5EE
+  .gallery-wrap
+    padding: 0 3px
+    margin-top: 50px
+    overflow: hidden
+  .row
+    display: flex
+    flex-wrap: wrap
+    margin: 0 -1.5px -5px
+  .grid
+    display: flex
+    flex-direction: column
+    padding: 0 1.5px
+    margin-bottom: 5px
+    &.w-50.h-50
+      .item
+        &::after
+          padding-bottom: 63.388%
+    &.w-50:not(.h-50)
+      .item
+        &::after
+          padding-bottom: 129.508%
+    &.w-100:not(.h-50):not(.large)
+      .item
+        &::after
+          padding-bottom: 64.228%
+    &.w-100.large
+      .item
+        &::after
+          padding-bottom: 97.289%
+    &.w-50
+      width: 50%
+    &.w-100
+      width: 100%
+  .item
+    flex: 1
+    border-radius: 10px
+    background-color: #ddd
+    &::after
+      content: ''
+      display: block
+      width: 100%
+      height: 0
+    &:not(:first-child)
+      margin-top: 5px
+
+footer
+  padding: 60px 5.333%
+  text-align: center
+  background-color: #F7F5EE
+  .back-top
+    display: inline-flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    .line
+      width: 1px
+      height: 100px
+      background-color: #7A7B78
+    .text
+      writing-mode: vertical-lr
+      margin-top: 22px
+      cursor: pointer
+      user-select: none
+  .heart
+    width: 100%
+    padding: 4px 0
+    margin: 60px 0
+    text-align: left
+    path
+      stroke-dashoffset: -450
+      stroke-dasharray: 450
+  .epilog
+    text-align: left
+    .ch
+      font-size: 20px
+      font-weight: 500
+      line-height: 1.5
+      letter-spacing: 1px
+    .en
+      font-size: 32px
+      line-height: 1.5
+      letter-spacing: 1px
+      margin-top: 20px
