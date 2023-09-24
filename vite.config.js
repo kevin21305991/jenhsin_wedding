@@ -7,6 +7,7 @@ export default {
   build: {
     outDir: '../dist',
     emptyOutDir: true,
+    sourcemap: true,
   },
   publicDir: '../public',
   resolve: {

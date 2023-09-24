@@ -106,24 +106,13 @@ header
     height: 100%
 
 .section-message
-  display: flex
-  flex-direction: column
-  height: 100vh
   padding: 60px 5.333%
   form
     flex: 1
-    display: flex
-    flex-direction: column
     margin-top: 60px
   .form-row
     &:not(:first-child)
       margin-top: 30px
-    &:last-child
-      height: 100%
-      .form-group
-        height: 100%
-        flex-direction: column
-        align-items: flex-start
   .form-group
     display: flex
     flex-wrap: wrap
@@ -284,3 +273,8 @@ footer
       line-height: 1.5
       letter-spacing: 1px
       margin-top: 20px
+
+@media screen and (max-width: 420px)
+  .wrap
+    .wish-section
+      display: none

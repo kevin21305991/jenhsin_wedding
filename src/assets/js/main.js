@@ -53,9 +53,9 @@ function gsapHandler() {
     'stroke-dashoffset': '0',
     scrollTrigger: {
       trigger: '.heart',
-      start: '-=60 80%',
-      end: '+=180',
-      scrub: 0.5,
+      start: '0 80%',
+      end: '+=60',
+      scrub: 1,
       // markers: true,
     },
   });
