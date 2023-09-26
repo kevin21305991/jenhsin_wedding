@@ -5,6 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 // import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin.js';
 gsap.registerPlugin(ScrollTrigger);
 
+/**
+ * 錨點
+ */
 function anchorHandler() {
   function anchorTo(target) {
     const targetSection = document.querySelector(target);
@@ -31,6 +34,9 @@ function anchorHandler() {
   document.addEventListener('click', anchorClick);
 }
 
+/**
+ * GSAP 動畫相關
+ */
 function gsapHandler() {
   const targets = document.querySelectorAll('[data-aost]');
   targets.forEach((target, index) => {
@@ -61,8 +67,32 @@ function gsapHandler() {
   });
 }
 
+function countdown() {
+  let countdownInterval;
+  const countdownEl = document.querySelector('.countdown');
+  const minutesEl = document.querySelector('.minutes');
+  const secondsEl = document.querySelector('.seconds');
+  const setSeconds = Number(countdownEl.getAttribute('data-seconds'));
+  let setTime = Math.floor(setSeconds / 60) + ':' + (setSeconds % 60);
+  countdownInterval = setInterval(() => {
+    const timer = setTime.split(':');
+    let minutes = parseInt(timer[0], 10);
+    let seconds = parseInt(timer[1], 10);
+    --seconds;
+    minutes = seconds < 0 ? --minutes : minutes;
+    minutes = minutes < 10 ? (minutes = '0' + minutes) : minutes;
+    if (minutes == 0 && seconds == 0) clearInterval(countdownInterval);
+    seconds = seconds < 0 ? 59 : seconds;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    setTime = minutes + ':' + seconds;
+    minutesEl.innerText = minutes;
+    secondsEl.innerText = seconds;
+  }, 1000);
+}
+
 (function () {
   const lazyLoadInstance = new LazyLoad();
   anchorHandler();
   gsapHandler();
+  countdown();
 })();

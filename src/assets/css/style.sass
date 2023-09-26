@@ -23,18 +23,59 @@ body,input,textarea
 .wrap
   display: flex
   align-items: flex-start
-  .wish-section
+  .bless-section
     position: sticky
     top: 0
     flex: 1
     height: 100vh
-    background: url('../img/wish-background.jpg') no-repeat center / cover
+    background: url('../img/bless-background.jpg') no-repeat center bottom / cover
+
   main
     position: relative
     width: min(100%,420px)
     min-height: 100vh
     background-color: #fff
     box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.25)
+
+.countdown-wrap
+  padding-top: 70px
+  text-align: center
+  .title
+    color: #515151
+    font-size: 40px
+    font-weight: 500
+    line-height: 1.5
+    letter-spacing: 3px
+  .countdown
+    display: flex
+    align-items: flex-start
+    justify-content: center
+    color: #626262
+    margin-top: 10px
+    .time-wrap
+      width: 262px
+      div
+        font-weight: 700
+        line-height: 1.5
+        letter-spacing: 5px
+        &:nth-child(1)
+          font-size: 220px
+          line-height: 1
+        &:nth-child(2)
+          font-size: 40px
+          margin-top: -6px
+    .colon
+      margin: 80px 45px 0
+      &::before,&::after
+        content: ''
+        display: block
+        width: 20px
+        height: 20px
+        border-radius: 50%
+        background-color: #626262
+      &::after
+        margin-top: 40px
+          
 
 header
   position: relative
@@ -276,5 +317,5 @@ footer
 
 @media screen and (max-width: 420px)
   .wrap
-    .wish-section
+    .bless-section
       display: none
