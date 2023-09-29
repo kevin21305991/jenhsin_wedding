@@ -3,6 +3,9 @@
 body,input,textarea
   font-family: 'Philosopher', 'Noto Sans TC', sans-serif
 
+.d-none
+  display: none !important
+
 .section-header
   text-align: center
   letter-spacing: 1px
@@ -29,6 +32,10 @@ body,input,textarea
     flex: 1
     height: 100vh
     background: url('../img/bless-background.jpg') no-repeat center bottom / cover
+    &.start
+      .countdown-wrap
+        opacity: .6
+        transition: opacity .5s
 
   main
     position: relative
@@ -38,43 +45,53 @@ body,input,textarea
     box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.25)
 
 .countdown-wrap
-  padding-top: 70px
+  padding-top: 6.4815vh
   text-align: center
   .title
     color: #515151
-    font-size: 40px
+    font-size: 3.703vh
     font-weight: 500
     line-height: 1.5
-    letter-spacing: 3px
-  .countdown
-    display: flex
-    align-items: flex-start
-    justify-content: center
+    letter-spacing: 0.075em
+  .status-text
+    display: none
     color: #626262
-    margin-top: 10px
-    .time-wrap
-      width: 262px
-      div
-        font-weight: 700
-        line-height: 1.5
-        letter-spacing: 5px
-        &:nth-child(1)
-          font-size: 220px
-          line-height: 1
-        &:nth-child(2)
-          font-size: 40px
-          margin-top: -6px
-    .colon
-      margin: 80px 45px 0
-      &::before,&::after
-        content: ''
-        display: block
-        width: 20px
-        height: 20px
-        border-radius: 50%
-        background-color: #626262
-      &::after
-        margin-top: 40px
+    font-size: 11.11vh
+    font-weight: 500
+    letter-spacing: 0.05em
+    margin-top: 4.629vh
+  .countdown-block
+    display: none
+    .countdown
+      display: flex
+      align-items: flex-start
+      justify-content: center
+      color: #626262
+      margin-top: 0.926vh
+      .time-wrap
+        width: 262px
+        div
+          font-weight: 700
+          line-height: 1.5
+          letter-spacing: 5px
+          &:nth-child(1)
+            font-size: 20.37vh
+            line-height: 1
+            height: 188px
+          &:nth-child(2)
+            font-size: 3.703vh
+            margin-top: -0.556vh
+      .colon
+        margin: 7.407vh 45px 0
+        &::before,&::after
+          content: ''
+          display: block
+          width: 1.852vh
+          height: 1.852vh
+          border-radius: 50%
+          background-color: #626262
+        &::after
+          margin-top: 3.703vh
           
 
 header
@@ -160,6 +177,10 @@ header
     align-items: center
     padding: 0 20px 10px
     border-bottom: 1px solid #C4C4C4
+    &.pic-select
+      padding: 20px
+      border-radius: 5px
+      border: 1px solid #C4C4C4
   label
     display: flex
     align-items: center
@@ -173,6 +194,64 @@ header
       &.ch
         font-weight: 500
         margin-left: 5px
+  .radio-wrap
+    width: 100%
+    margin-top: 10px
+    .row
+      display: flex
+      flex-wrap: wrap
+      margin: 0 -20px -16px
+    .grid
+      width: calc(100% / 3)
+      padding: 0 20px 16px
+    .radio-item
+      position: relative
+      width: 100%
+      input
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        margin: 0
+        opacity: 0
+        cursor: pointer
+        z-index: 1
+        &:checked + .pic-box
+          &::before
+            opacity: 1
+          img
+            filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.25))
+      .pic-box
+        position: relative
+        width: 100%
+        border-radius: 50%
+        background-color: #ECECEC
+        overflow: hidden
+        &::before
+          content: ''
+          position: absolute
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          background: linear-gradient(180deg, #F6EBEB 0%, #F8B8C6 100%)
+          opacity: 0
+          transition: opacity .3s
+        &::after
+          content: ''
+          display: block
+          width: 100%
+          height: 0
+          padding-bottom: 100%
+        img
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate3d(-50%,-50%,0)
+          width: 100%
+          height: 100%
+          object-fit: cover
   input,textarea
     color: #000
     font-size: 16px
@@ -265,6 +344,7 @@ header
     &.w-100
       width: 100%
   .item
+    position: relative
     flex: 1
     border-radius: 10px
     background-color: #ddd
@@ -275,6 +355,14 @@ header
       height: 0
     &:not(:first-child)
       margin-top: 5px
+    img
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate3d(-50%,-50%,0)
+      width: 100%
+      height: 100%
+      object-fit: cover
 
 footer
   padding: 60px 5.333%

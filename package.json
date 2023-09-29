@@ -13,7 +13,9 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "@fancyapps/ui": "^5.0.23",
     "gsap": "^3.12.2",
+    "jquery": "^3.7.1",
     "vanilla-lazyload": "^17.8.4"
   }
 }

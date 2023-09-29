@@ -1,8 +1,12 @@
 import '../css/style.sass';
+import $ from 'jquery';
+window.jQuery = window.$ = $;
 import LazyLoad from 'vanilla-lazyload';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
-// import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin.js';
+import { Fancybox } from '@fancyapps/ui';
+import '@fancyapps/ui/dist/fancybox/fancybox.css';
+
 gsap.registerPlugin(ScrollTrigger);
 
 /**
@@ -67,12 +71,35 @@ function gsapHandler() {
   });
 }
 
-function countdown() {
+function switchEventStatus(status) {
+  const statusText = $('.status-text');
+  switch (status) {
+    case -1:
+      console.log('敬請期待');
+      statusText.text('敬請期待').fadeIn();
+      break;
+    case 0:
+      console.log('活動即將開始');
+      $('.countdown-block').fadeIn();
+      break;
+    case 1:
+      console.log('活動開始');
+      $('.bless-section').addClass('start');
+      $('.minutes').text('00');
+      $('.seconds').text('00');
+      $('.countdown-block').fadeIn();
+      break;
+  }
+}
+
+/**
+ * 倒數計時
+ */
+function countdown(seconds) {
   let countdownInterval;
-  const countdownEl = document.querySelector('.countdown');
-  const minutesEl = document.querySelector('.minutes');
-  const secondsEl = document.querySelector('.seconds');
-  const setSeconds = Number(countdownEl.getAttribute('data-seconds'));
+  const minutesEl = $('.minutes');
+  const secondsEl = $('.seconds');
+  const setSeconds = Number(seconds) / 1000;
   let setTime = Math.floor(setSeconds / 60) + ':' + (setSeconds % 60);
   countdownInterval = setInterval(() => {
     const timer = setTime.split(':');
@@ -81,18 +108,59 @@ function countdown() {
     --seconds;
     minutes = seconds < 0 ? --minutes : minutes;
     minutes = minutes < 10 ? (minutes = '0' + minutes) : minutes;
-    if (minutes == 0 && seconds == 0) clearInterval(countdownInterval);
     seconds = seconds < 0 ? 59 : seconds;
     seconds = seconds < 10 ? '0' + seconds : seconds;
     setTime = minutes + ':' + seconds;
-    minutesEl.innerText = minutes;
-    secondsEl.innerText = seconds;
+    minutesEl.text(minutes);
+    secondsEl.text(seconds);
+    if (minutes == 0 && seconds == 0) {
+      console.log('倒數結束');
+      switchEventStatus(1);
+      clearInterval(countdownInterval);
+    }
   }, 1000);
+}
+
+/**
+ * 設定活動時間
+ */
+function setEventTime(prepare, start) {
+  const prepareDate = new Date(prepare);
+  const startDate = new Date(start); //
+  const currentDate = new Date(); //進到畫面時的時間
+  const timeUntilPrepare = prepareDate - currentDate;
+  const timeUntilStart = startDate - currentDate;
+  if (timeUntilPrepare > 0) {
+    switchEventStatus(-1);
+  }
+  if (timeUntilStart >= 0) {
+    if (timeUntilPrepare.toString().length >= 10) {
+      switchEventStatus(-1);
+      return;
+    }
+    const now = new Date();
+    const timeout = setTimeout(() => {
+      switchEventStatus(0);
+      countdown(startDate - now);
+    }, timeUntilPrepare);
+  } else if (timeUntilStart < 0) {
+    switchEventStatus(1);
+  }
 }
 
 (function () {
   const lazyLoadInstance = new LazyLoad();
+  setEventTime('2023-09-29T12:00:00', '2023-09-29T12:42:00');
+  // setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
   anchorHandler();
   gsapHandler();
-  countdown();
+  Fancybox.bind('[data-fancybox]', {
+    // Your custom options
+    contentClick: false,
+    Toolbar: {
+      display: {
+        right: ['slideshow', 'close'],
+      },
+    },
+  });
 })();
