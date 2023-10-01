@@ -52,12 +52,12 @@ function switchEventStatus(status) {
   switch (status) {
     case -1:
       console.log('敬請期待');
-      statusText.text('敬請期待').fadeIn(1000);
+      statusText.text('敬請期待').fadeIn();
       break;
     case 0:
       console.log('活動即將開始');
       statusText.fadeOut();
-      $('.countdown-block').fadeIn(1000);
+      $('.countdown-block').delay(1000).fadeIn();
       break;
     case 1:
       console.log('活動開始');
@@ -65,7 +65,7 @@ function switchEventStatus(status) {
       $('.minutes').text('00');
       $('.seconds').text('00');
       statusText.fadeOut();
-      $('.countdown-block').fadeIn(1000);
+      $('.countdown-block').delay(1000).fadeIn();
       break;
   }
 }
@@ -78,7 +78,7 @@ function countdown(seconds) {
   const countdownEl = $('.countdown');
   const minutesEl = $('.minutes');
   const secondsEl = $('.seconds');
-  const setSeconds = Number(seconds) / 1000;
+  const setSeconds = Number(seconds) / 1000 + 1;
   let setTime = Math.floor(setSeconds / 60) + ':' + (setSeconds % 60);
   countdownInterval = setInterval(() => {
     const timer = setTime.split(':');

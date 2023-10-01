@@ -1,5 +1,6 @@
 @import ./reset
 @import ./mixin
+@import ./keyframe
 
 *
   -webkit-tap-highlight-color: transparent
@@ -71,6 +72,9 @@ body,input,textarea
       .countdown-wrap
         opacity: .6
         transition: opacity .5s
+      .note-wrap
+        opacity: 1
+        transition: opacity .5s 2s, transform .5s 2s
       .newlywed-wrap
         .layer
           &.heart
@@ -93,10 +97,14 @@ body,input,textarea
     min-height: 100vh
     background-color: #fff
     box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.25)
+    overflow: hidden
 
 .countdown-wrap
+  position: relative
   padding-top: 6.4815vh
   text-align: center
+  user-select: none
+  z-index: 1
   .title
     color: #515151
     font-size: 3.703vh
@@ -142,6 +150,49 @@ body,input,textarea
           background-color: #626262
         &::after
           margin-top: 3.703vh
+.note-wrap
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  z-index: 0
+  opacity: 0
+  img
+    position: absolute
+    opacity: 1
+    filter: drop-shadow(0px 4px 3px rgba(0, 0, 0, 0.37))
+    &.note1
+      width: 35px
+      left: calc(71% + 30.03838vh)
+      bottom: 37.919%
+      animation: floatRightTop 2s infinite
+    &.note2
+      width: 40px
+      left: calc(61% + 30.03838vh)
+      bottom: 65%
+      animation: floatRightTop 2s .6s infinite
+    &.note3
+      width: 30px
+      left: calc(52% + 30.03838vh)
+      bottom: 48.754%
+      animation: floatRightTop 2s .9s infinite
+    &.note4
+      width: 40px
+      left: calc(43% - 31.96162vh)
+      bottom: 27.086%
+      animation: floatLeftTop 2s infinite
+    &.note5
+      width: 30px
+      left: calc(48% - 31.96162vh)
+      bottom: 56.338%
+      animation: floatLeftTop 2s .4s infinite
+    &.note6
+      width: 40px
+      left: calc(33% - 31.96162vh)
+      bottom: 48.754%
+      animation: floatLeftTop 2s .8s infinite
+      
 .newlywed-wrap
   left: 50%
   bottom: 0
@@ -189,12 +240,10 @@ header
   z-index: 1
   &.is-active
     img
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
-      transition: clip-path 1.2s
+      animation: headerAnimate 4s infinite
   img
     width: auto
     height: 30px
-    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%)
 
 .anchor-bar
   display: flex
@@ -234,30 +283,30 @@ header
 
 .section-newlywed
   position: relative
-  overflow: hidden
   &.is-active
     .layer
-      opacity: 1
       &.background
+        opacity: 1
         width: 100%
         height: 100%
-        transition: opacity .8s 1s, width .8s 1s, height .8s 1s
+        transition: opacity 4s 1s, width .8s 1s, height .8s 1s
       &.grass
+        opacity: 1
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
         transition: opacity 1.2s 1.6s, clip-path 1.2s 1.6s
       &.newlywed
+        opacity: 1
         transition: opacity .6s 2.3s
       &.cat
-        transition: opacity .6s 2.6s
-        img
-          transform: translate3d(0,0,0)
-          transition: transform .6s 2.6s
+        opacity: 1
+        transform: translate3d(-50%,-50%,0)
+        transition: opacity .6s 2.6s, transform .6s 2.6s
       &.flower
-        transition: opacity .6s 2.8s
-        img
-          transform: translate3d(0,0,0)
-          transition: transform .6s 2.8s
+        opacity: 1
+        transform: translate3d(-50%,-50%,0)
+        transition: opacity .6s 2.8s, transform .6s 2.8s
       &.text
+        opacity: 1
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
         transition: opacity .6s 3.2s, clip-path 1.2s 3.2s
   &::after
@@ -279,11 +328,9 @@ header
     &.grass,&.text
       clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%)
     &.cat
-      img
-        transform: translate3d(-5px,5px,0)
+      transform: translate3d(calc(-50% - 5px),calc(-50% + 5px),0)
     &.flower
-      img
-        transform: translate3d(10px,-10px,0)
+      transform: translate3d(calc(-50% + 10px),calc(-50% - 10px),0)
 
 .section-message
   padding: 60px 5.333%
