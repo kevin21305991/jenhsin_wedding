@@ -6,37 +6,9 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
+import './anchor';
 
 gsap.registerPlugin(ScrollTrigger);
-
-/**
- * 錨點
- */
-function anchorHandler() {
-  function anchorTo(target) {
-    const targetSection = document.querySelector(target);
-    window.scrollTo({
-      top: targetSection ? targetSection.offsetTop : 0,
-      behavior: 'smooth',
-    });
-  }
-  function anchorClick(e) {
-    let isTarget = false;
-    const allAnchorBtn = document.querySelectorAll('.anchor-btn');
-    for (const targetElement of allAnchorBtn) {
-      if (targetElement.contains(e.target) || e.target.closest('.anchor-btn') === targetElement) {
-        isTarget = true;
-        break;
-      }
-    }
-    if (isTarget) {
-      const anchorTarget = e.target.closest('.anchor-btn').getAttribute('anchor-target');
-      anchorTo(anchorTarget);
-    }
-  }
-
-  document.addEventListener('click', anchorClick);
-}
 
 /**
  * GSAP 動畫相關
@@ -44,25 +16,29 @@ function anchorHandler() {
 function gsapHandler() {
   const targets = document.querySelectorAll('[data-aost]');
   targets.forEach((target, index) => {
+    const start = target.getAttribute('data-aost-start') || '75%';
     const defaultOptions = {
       trigger: target,
       id: index + 1,
-      start: 'top center',
+      start: `top ${start}`,
       end: () => `+=${target.clientHeight}`,
       // toggleActions: 'play reverse none reverse',
       // toggleClass: { targets: target, className: 'is-active' },
       onEnter: () => {
         target.classList.add('is-active');
       },
+      onLeaveBack: () => {
+        target.classList.remove('is-active');
+      },
       // markers: true,
     };
     ScrollTrigger.create(defaultOptions);
   });
 
-  gsap.to('.heart path', {
+  gsap.to('footer .heart path', {
     'stroke-dashoffset': '0',
     scrollTrigger: {
-      trigger: '.heart',
+      trigger: 'footer .heart',
       start: '0 80%',
       end: '+=60',
       scrub: 1,
@@ -76,18 +52,20 @@ function switchEventStatus(status) {
   switch (status) {
     case -1:
       console.log('敬請期待');
-      statusText.text('敬請期待').fadeIn();
+      statusText.text('敬請期待').fadeIn(1000);
       break;
     case 0:
       console.log('活動即將開始');
-      $('.countdown-block').fadeIn();
+      statusText.fadeOut();
+      $('.countdown-block').fadeIn(1000);
       break;
     case 1:
       console.log('活動開始');
       $('.bless-section').addClass('start');
       $('.minutes').text('00');
       $('.seconds').text('00');
-      $('.countdown-block').fadeIn();
+      statusText.fadeOut();
+      $('.countdown-block').fadeIn(1000);
       break;
   }
 }
@@ -97,6 +75,7 @@ function switchEventStatus(status) {
  */
 function countdown(seconds) {
   let countdownInterval;
+  const countdownEl = $('.countdown');
   const minutesEl = $('.minutes');
   const secondsEl = $('.seconds');
   const setSeconds = Number(seconds) / 1000;
@@ -150,9 +129,10 @@ function setEventTime(prepare, start) {
 
 (function () {
   const lazyLoadInstance = new LazyLoad();
-  setEventTime('2023-09-29T12:00:00', '2023-09-29T12:42:00');
+  const currentTime = new Date();
+  const afterThirtySec = new Date(currentTime.getTime() + 10000);
+  setEventTime(currentTime, afterThirtySec);
   // setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
-  anchorHandler();
   gsapHandler();
   Fancybox.bind('[data-fancybox]', {
     // Your custom options

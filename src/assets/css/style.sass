@@ -1,10 +1,31 @@
 @import ./reset
+@import ./mixin
+
+*
+  -webkit-tap-highlight-color: transparent
 
 body,input,textarea
   font-family: 'Philosopher', 'Noto Sans TC', sans-serif
 
-.d-none
-  display: none !important
+[data-asot-fade]
+  opacity: 0
+  transition: opacity .6s
+  &.is-active
+    opacity: 1
+[data-asot-fadeUp]
+  opacity: 0
+  transform: translate3d(0,30px,0)
+  transition: opacity .6s, transform .6s
+  &.is-active
+    opacity: 1
+    transform: translate3d(0,0,0)
+[data-asot-clipLeft]
+  opacity: 0
+  clip-path: polygon(0 0, 0 0, -20% 100%, -20% 100%)
+  transition: opacity .6s, clip-path .6s
+  &.is-active
+    opacity: 1
+    clip-path: polygon(0 0, 120% 0, 100% 100%, -20% 100%)
 
 .section-header
   text-align: center
@@ -31,11 +52,40 @@ body,input,textarea
     top: 0
     flex: 1
     height: 100vh
-    background: url('./assets/img/bless-background.jpg') no-repeat center bottom / cover
+    background: url('../assets/img/bless-background.jpg') no-repeat center bottom / cover
+    overflow: hidden
+    &::after
+      content: ''
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background: url('../assets/img/bless-background2.jpg') no-repeat center bottom / cover
+      opacity: 0
+      z-index: -1
     &.start
+      &::after
+        opacity: 1
+        transition: opacity .5s
       .countdown-wrap
         opacity: .6
         transition: opacity .5s
+      .newlywed-wrap
+        .layer
+          &.heart
+            path
+              opacity: 1
+              stroke-dashoffset: 0
+              transition: opacity 1.4s 1s ease-out, stroke-dashoffset 1.4s 1s ease-out
+          &.brideg
+            opacity: 1
+            transform: translate3d(0,0,0)
+            transition: opacity .5s .5s, transform .5s .5s
+          &.bridegroom
+            opacity: 1
+            transform: translate3d(0,0,0)
+            transition: opacity .5s .8s, transform .5s .8s
 
   main
     position: relative
@@ -92,7 +142,41 @@ body,input,textarea
           background-color: #626262
         &::after
           margin-top: 3.703vh
-          
+.newlywed-wrap
+  left: 50%
+  bottom: 0
+  width: 62vh
+  transform: translate3d(-51.551%,16.175%,0)
+  +imgRatio(absolute,756,915)
+  .layer
+    position: absolute
+    &.heart
+      top: -7.9412%
+      left: 45.435%
+      width: 17.475%
+      filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.37))
+      path
+        fill: none
+        stroke: #fff
+        stroke-linecap: round
+        stroke-miterlimit: 10
+        stroke-width: 7px
+        opacity: 0
+        stroke-dashoffset: 800
+        stroke-dasharray: 800
+    &.brideg
+      top: 0
+      left: 0
+      width: 100%
+      opacity: 0
+      transform: translate3d(-50px,50px,0)
+    &.bridegroom
+      top: 0
+      left: 0
+      width: 100%
+      opacity: 0
+      transform: translate3d(50px,50px,0)
+
 
 header
   position: relative
@@ -120,7 +204,7 @@ header
   &.is-active
     opacity: 1
     transform: translate3d(0,0,0)
-    transition: opacity .6s 1.2s, transform .6s 1.2s
+    transition: opacity .6s .8s, transform .6s .8s
   >li
     position: relative
     display: flex
@@ -150,6 +234,32 @@ header
 
 .section-newlywed
   position: relative
+  overflow: hidden
+  &.is-active
+    .layer
+      opacity: 1
+      &.background
+        width: 100%
+        height: 100%
+        transition: opacity .8s 1s, width .8s 1s, height .8s 1s
+      &.grass
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
+        transition: opacity 1.2s 1.6s, clip-path 1.2s 1.6s
+      &.newlywed
+        transition: opacity .6s 2.3s
+      &.cat
+        transition: opacity .6s 2.6s
+        img
+          transform: translate3d(0,0,0)
+          transition: transform .6s 2.6s
+      &.flower
+        transition: opacity .6s 2.8s
+        img
+          transform: translate3d(0,0,0)
+          transition: transform .6s 2.8s
+      &.text
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
+        transition: opacity .6s 3.2s, clip-path 1.2s 3.2s
   &::after
     content: ''
     display: block
@@ -157,16 +267,27 @@ header
     height: 0
     padding-bottom: 114.286%
   .layer
-    position: absolute
-    top: 0
-    left: 0
     width: 100%
     height: 100%
+    opacity: 0
+    +posCenter
+    &.background
+      width: 0
+      height: 0
+      border-radius: 50%
+      overflow: hidden
+    &.grass,&.text
+      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%)
+    &.cat
+      img
+        transform: translate3d(-5px,5px,0)
+    &.flower
+      img
+        transform: translate3d(10px,-10px,0)
 
 .section-message
   padding: 60px 5.333%
   form
-    flex: 1
     margin-top: 60px
   .form-row
     &:not(:first-child)
@@ -293,13 +414,7 @@ header
         background-color: #BCBCBC
 
 .section-banner
-  position: relative
-  &::after
-    content: ''
-    display: block
-    width: 100%
-    height: 0
-    padding-bottom: 107.143%
+  +imgRatio(relative,420,450)
   img
     position: absolute
     top: 50%
@@ -325,6 +440,10 @@ header
     flex-direction: column
     padding: 0 1.5px
     margin-bottom: 5px
+    &.is-active
+      .item
+        opacity: 1
+        transform: scale(1)
     &.w-50.h-50
       .item
         &::after
@@ -349,7 +468,10 @@ header
     position: relative
     flex: 1
     border-radius: 10px
-    background-color: #ddd
+    overflow: hidden
+    opacity: 0
+    transform: scale(.9)
+    transition: opacity .6s, transform .6s
     &::after
       content: ''
       display: block
@@ -395,10 +517,10 @@ footer
   .epilog
     text-align: left
     .ch
-      font-size: 20px
-      font-weight: 500
-      line-height: 1.5
-      letter-spacing: 1px
+      height: 32px
+      img
+        width: auto
+        height: 100%
     .en
       font-size: 32px
       line-height: 1.5
