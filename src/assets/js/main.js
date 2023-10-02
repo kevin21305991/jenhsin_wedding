@@ -6,6 +6,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
+import { lock, unlock } from 'tua-body-scroll-lock';
 import './anchor';
 
 gsap.registerPlugin(ScrollTrigger);

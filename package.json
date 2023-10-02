@@ -16,6 +16,7 @@
     "@fancyapps/ui": "^5.0.23",
     "gsap": "^3.12.2",
     "jquery": "^3.7.1",
+    "tua-body-scroll-lock": "^1.4.0",
     "vanilla-lazyload": "^17.8.4"
   }
 }
