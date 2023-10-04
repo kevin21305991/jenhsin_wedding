@@ -128,13 +128,10 @@ function setEventTime(prepare, start) {
   }
 }
 
-(function () {
-  const lazyLoadInstance = new LazyLoad();
-  const currentTime = new Date();
-  const afterThirtySec = new Date(currentTime.getTime() + 10000);
-  setEventTime(currentTime, afterThirtySec);
-  // setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
-  gsapHandler();
+/**
+ * 照片燈箱
+ */
+function photoLightbox() {
   Fancybox.bind('[data-fancybox]', {
     // Your custom options
     contentClick: false,
@@ -144,4 +141,30 @@ function setEventTime(prepare, start) {
       },
     },
   });
+}
+
+/**
+ * 查看所有留言
+ */
+function messageAsideHandler() {
+  const messageAside = $('.message-aside');
+  $('.btn.view').on('click', function () {
+    messageAside.addClass('show');
+    lock(messageAside[0]);
+  });
+  messageAside.on('click', '.back', function () {
+    messageAside.removeClass('show');
+    unlock(messageAside[0]);
+  });
+}
+
+(function () {
+  const lazyLoadInstance = new LazyLoad();
+  const currentTime = new Date();
+  const afterThirtySec = new Date(currentTime.getTime() + 10000);
+  setEventTime(currentTime, afterThirtySec);
+  // setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
+  gsapHandler();
+  photoLightbox();
+  messageAsideHandler();
 })();
