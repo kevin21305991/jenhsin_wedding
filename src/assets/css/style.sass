@@ -9,8 +9,9 @@ body,input,textarea
   font-family: 'Philosopher', 'Noto Sans TC', sans-serif
 
 body
-  &::-webkit-scrollbar
-    display: none
+  +rwdmin(1201)
+    &::-webkit-scrollbar
+      display: none
 
 [data-aost-fade]
   opacity: 0
@@ -102,6 +103,7 @@ body
     box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.25)
     overflow: hidden
 
+// 側邊留言區
 .message-aside
   position: fixed
   top: 0
@@ -114,6 +116,9 @@ body
   transform: translate3d(100%,0,0)
   transition: opacity .6s, transform .6s
   z-index: 1
+  +rwdmin(1201)
+    &::-webkit-scrollbar
+      display: none
   &.show
     opacity: 1
     transform: translate3d(0,0,0)
@@ -165,8 +170,6 @@ body
           svg
             path
               fill: #B0B0B0
-
-      
     .pic-box
       position: relative
       width: 50px
@@ -202,6 +205,7 @@ body
           line-height: 1.5
           letter-spacing: 0.03em
 
+// 倒數計時
 .countdown-wrap
   position: relative
   padding-top: 6.4815vh
@@ -230,11 +234,12 @@ body
       color: #626262
       margin-top: 0.926vh
       .time-wrap
-        width: 262px
+        width: 24.486vh
         div
           font-weight: 700
           line-height: 1.5
           letter-spacing: 5px
+          text-indent: -2.5px
           &:nth-child(1)
             font-size: 20.37vh
             line-height: 1
@@ -253,6 +258,8 @@ body
           background-color: #626262
         &::after
           margin-top: 3.703vh
+
+// 音符
 .note-wrap
   position: absolute
   top: 0
@@ -295,7 +302,8 @@ body
       left: calc(33% - 31.96162vh)
       bottom: 48.754%
       animation: floatLeftTop 2s .8s infinite
-      
+
+// 新人
 .newlywed-wrap
   left: 50%
   bottom: 0
@@ -331,6 +339,26 @@ body
       opacity: 0
       transform: translate3d(50px,50px,0)
 
+//熱氣球通道
+.danmu-wrap
+  position: absolute
+  top: 0
+  left: 0
+  display: flex
+  width: 100%
+  height: 100%
+  user-select: none
+  pointer-events: none
+  z-index: 10
+  .aisle
+    width: calc(100% / 3)
+    height: 100%
+    // background-color: rgba(#000,.5)
+    &:nth-child(1)
+      transform: translate3d(10%,0,0)
+    &:nth-child(3)
+      transform: translate3d(-10%,0,0)
+      
 
 .common-header
   position: relative
@@ -400,7 +428,7 @@ header
         opacity: 1
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%)
         transition: opacity 1.2s 1.6s, clip-path 1.2s 1.6s
-      &.newlywed
+      &.people
         opacity: 1
         transition: opacity .6s 2.3s
       &.cat

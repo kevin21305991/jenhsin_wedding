@@ -22,10 +22,11 @@ function firebaseConnect() {
 }
 
 function messageHandler() {
+  let danmuArray = [];
   const msgWrap = $('.msg-wrap');
   const msgItemDOM = data => `<div class="msg-item">
       <div class="pic-box">
-        <img src="./assets/img/${data.style}.png" alt="">
+        <img src="./assets/img/balloon/${data.style}.png" alt="">
       </div>
       <div class="txt-box">
         <div class="name">${data.name}</div>
@@ -42,14 +43,13 @@ function messageHandler() {
     const db = getDatabase();
     const dbRef = ref(db, '/users/');
     onValue(dbRef, snapshot => {
-      console.log(snapshot.val());
-      if (!snapshot.val()) return;
-      // msgWrap.empty();
+      if (!snapshot.exists()) return;
+      msgWrap.empty();
       for (const key in snapshot.val()) {
-        console.log(key, 'key');
+        msgWrap.append(msgItemDOM(snapshot.val()[key]));
+        const { style, name, content, createdTime } = snapshot.val()[key];
         if (snapshot.val()[key].status === 0) {
-          msgWrap.append(msgItemDOM(snapshot.val()[key]));
-          const { style, name, content, createdTime } = snapshot.val()[key];
+          danmuArray.push(snapshot.val()[key]);
           update(ref(db), {
             ['users/' + key]: {
               status: 1,
@@ -62,6 +62,28 @@ function messageHandler() {
         }
       }
     });
+  }
+
+  /**
+   * 彈幕
+   */
+  function showDanmu() {
+    let checkTimeInterval;
+    let danmuReady = false;
+    checkTimeInterval = setInterval(() => {
+      const now = new Date();
+      const startTime = new Date('2023-11-11T17:00:00'); // 發射彈幕開始時間
+      if (startTime - now <= 0) {
+        danmuReady = true;
+        clearInterval(checkTimeInterval);
+      }
+    }, 1000);
+    setInterval(() => {
+      if (danmuReady) {
+        const firstElement = danmuArray.shift();
+        console.log(firstElement);
+      }
+    }, 10000);
   }
 
   // 留言表單相關
@@ -114,8 +136,10 @@ function messageHandler() {
       formHandler.eventHandler();
     },
   };
+
   formHandler.all();
   loadMessage();
+  showDanmu();
 }
 
 export function messageInit() {

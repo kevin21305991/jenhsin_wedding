@@ -1,3 +1,16 @@
+//RWD
+@mixin rwdmax($max)
+  @media only screen and (max-width: $max + px)  
+    @content
+
+@mixin rwdmin($min)
+  @media only screen and (min-width: $min + px)  
+    @content
+
+@mixin rwdrange($min,$max)
+  @media only screen and (min-width: $min + px) and (max-width: $max + px)
+    @content
+
 @mixin imgRatio($pos,$w, $h)
   position: $pos
   &::after

@@ -104,8 +104,8 @@ function countdown(seconds) {
  * 設定活動時間
  */
 function setEventTime(prepare, start) {
-  const prepareDate = new Date(prepare);
-  const startDate = new Date(start); //
+  const prepareDate = new Date(prepare); //活動準備開始時間
+  const startDate = new Date(start); //活動正式開始時間
   const currentDate = new Date(); //進到畫面時的時間
   const timeUntilPrepare = prepareDate - currentDate;
   const timeUntilStart = startDate - currentDate;
@@ -144,10 +144,10 @@ function photoLightbox() {
 
 (function () {
   const lazyLoadInstance = new LazyLoad();
-  // const currentTime = new Date();
-  // const afterThirtySec = new Date(currentTime.getTime() + 10000);
-  // setEventTime(currentTime, afterThirtySec);
-  setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
+  const currentTime = new Date();
+  const afterThirtySec = new Date(currentTime.getTime() + 10000);
+  setEventTime(currentTime, afterThirtySec);
+  // setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
   gsapHandler();
   photoLightbox();
   messageInit();
