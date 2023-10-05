@@ -44,11 +44,12 @@ function messageHandler() {
     onValue(dbRef, snapshot => {
       console.log(snapshot.val());
       if (!snapshot.val()) return;
+      msgWrap.empty();
       for (const key in snapshot.val()) {
         console.log(key, 'key');
+        msgWrap.append(msgItemDOM(snapshot.val()[key]));
+        const { style, name, content, createdTime } = snapshot.val()[key];
         if (snapshot.val()[key].status === 0) {
-          msgWrap.append(msgItemDOM(snapshot.val()[key]));
-          const { style, name, content, createdTime } = snapshot.val()[key];
           update(ref(db), {
             ['users/' + key]: {
               status: 1,
