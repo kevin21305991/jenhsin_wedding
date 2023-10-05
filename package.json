@@ -14,8 +14,10 @@
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.23",
+    "firebase": "^10.4.0",
     "gsap": "^3.12.2",
     "jquery": "^3.7.1",
+    "moment": "^2.29.4",
     "tua-body-scroll-lock": "^1.4.0",
     "vanilla-lazyload": "^17.8.4"
   }

@@ -6,15 +6,14 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 import { Fancybox } from '@fancyapps/ui';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
-import { lock, unlock } from 'tua-body-scroll-lock';
+import { messageInit } from './message';
 import './anchor';
-
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * GSAP 動畫相關
  */
 function gsapHandler() {
+  gsap.registerPlugin(ScrollTrigger);
   const targets = document.querySelectorAll('[data-aost]');
   targets.forEach((target, index) => {
     const start = target.getAttribute('data-aost-start') || '75%';
@@ -143,28 +142,13 @@ function photoLightbox() {
   });
 }
 
-/**
- * 查看所有留言
- */
-function messageAsideHandler() {
-  const messageAside = $('.message-aside');
-  $('.btn.view').on('click', function () {
-    messageAside.addClass('show');
-    lock(messageAside[0]);
-  });
-  messageAside.on('click', '.back', function () {
-    messageAside.removeClass('show');
-    unlock(messageAside[0]);
-  });
-}
-
 (function () {
   const lazyLoadInstance = new LazyLoad();
-  const currentTime = new Date();
-  const afterThirtySec = new Date(currentTime.getTime() + 10000);
-  setEventTime(currentTime, afterThirtySec);
-  // setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
+  // const currentTime = new Date();
+  // const afterThirtySec = new Date(currentTime.getTime() + 10000);
+  // setEventTime(currentTime, afterThirtySec);
+  setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
   gsapHandler();
   photoLightbox();
-  messageAsideHandler();
+  messageInit();
 })();
