@@ -47,6 +47,10 @@ function gsapHandler() {
   });
 }
 
+/**
+ * 活動狀態切換
+ * @param {number} status 狀態 -1, 0, 1
+ */
 function switchEventStatus(status) {
   const statusText = $('.status-text');
   switch (status) {
@@ -72,6 +76,7 @@ function switchEventStatus(status) {
 
 /**
  * 倒數計時
+ * @param {number} seconds 欲倒數秒數
  */
 function countdown(seconds) {
   let countdownInterval;
@@ -102,6 +107,9 @@ function countdown(seconds) {
 
 /**
  * 設定活動時間
+ * @param {string} prepare 活動準備開始時間(date 字串 'YYYY-MM-DDThh:mm:ss')
+ * @param {string} start 活動正式開始時間(date 字串 'YYYY-MM-DDThh:mm:ss')
+ * @returns
  */
 function setEventTime(prepare, start) {
   const prepareDate = new Date(prepare); //活動準備開始時間
@@ -117,8 +125,8 @@ function setEventTime(prepare, start) {
       switchEventStatus(-1);
       return;
     }
-    const now = new Date();
     const timeout = setTimeout(() => {
+      const now = new Date();
       switchEventStatus(0);
       countdown(startDate - now);
     }, timeUntilPrepare);
@@ -142,13 +150,19 @@ function photoLightbox() {
   });
 }
 
+/**
+ * 最終測試
+ */
+function finalTest(prepareDate, startDate) {
+  setEventTime(prepareDate, startDate);
+  messageInit(prepareDate);
+}
+
 (function () {
   const lazyLoadInstance = new LazyLoad();
-  const currentTime = new Date();
-  const afterThirtySec = new Date(currentTime.getTime() + 10000);
-  setEventTime(currentTime, afterThirtySec);
-  // setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
   gsapHandler();
   photoLightbox();
-  messageInit();
+  // setEventTime('2023-10-08T14:38:00', '2023-10-08T15:38:00');
+  // messageInit('2023-10-08T14:38:00');
+  finalTest('2023-10-08T15:30:00', '2023-10-08T16:30:00');
 })();

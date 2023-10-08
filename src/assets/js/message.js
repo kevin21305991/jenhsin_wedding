@@ -2,6 +2,9 @@ import moment from 'moment';
 import { lock, unlock } from 'tua-body-scroll-lock';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, update, push, child, onValue } from 'firebase/database';
+import { gsap } from 'gsap';
+import { CustomEase } from 'gsap/CustomEase';
+gsap.registerPlugin(CustomEase);
 
 /**
  * firebase 連線
@@ -21,8 +24,9 @@ function firebaseConnect() {
   const database = getDatabase(app);
 }
 
-function messageHandler() {
+function messageHandler(danmuStartDate) {
   let danmuArray = [];
+  let previousAisle = Math.floor(Math.random() * 3) + 1; //上一個彈幕通道
   const msgWrap = $('.msg-wrap');
   const msgItemDOM = data => `<div class="msg-item">
       <div class="pic-box">
@@ -39,6 +43,9 @@ function messageHandler() {
       </div>
     </div>`;
 
+  /**
+   * 載入留言
+   */
   function loadMessage() {
     const db = getDatabase();
     const dbRef = ref(db, '/users/');
@@ -47,32 +54,149 @@ function messageHandler() {
       msgWrap.empty();
       for (const key in snapshot.val()) {
         msgWrap.append(msgItemDOM(snapshot.val()[key]));
-        const { style, name, content, createdTime } = snapshot.val()[key];
-        if (snapshot.val()[key].status === 0) {
-          danmuArray.push(snapshot.val()[key]);
-          update(ref(db), {
-            ['users/' + key]: {
-              status: 1,
-              style,
-              name,
-              content,
-              createdTime,
-            },
+        const { status, style, name, content, createdTime } = snapshot.val()[key];
+        const exists = danmuArray.some(item => item.id === key);
+        console.log(exists, 'exists');
+        if (snapshot.val()[key].status === 0 && !exists) {
+          danmuArray.push({
+            id: key,
+            status,
+            style,
+            name,
+            content,
+            createdTime,
           });
+          console.log(danmuArray, 'push');
         }
       }
     });
   }
 
   /**
-   * 彈幕
+   * 建立彈幕
+   * @param {object} data 留言相關資料
+   */
+  function createDanmu() {
+    const db = getDatabase();
+    const data = danmuArray[0];
+    const { id, style, name, content, createdTime } = data;
+    const danmuDOM = data => {
+      let startOffset, SVGPathD;
+      switch (data.style) {
+        case 'sun':
+          startOffset = '46%';
+          SVGPathD = 'M162.6,310.4c0,0,103.4-36.1,232.1,0.5c0,0,28.4,8.5,39.4,4.8';
+          break;
+        case 'cloud':
+          startOffset = '50%';
+          SVGPathD = 'M110.9 222.2, L458.9 222.2';
+          break;
+        case 'moon':
+          startOffset = '55%';
+          SVGPathD = 'M136.2,273c0,0,100.3-36.2,260.5,20.1';
+          break;
+        case 'star':
+          startOffset = '50%';
+          SVGPathD = 'M147.9,265.5c0,0,134.5-55.2,283.8,0';
+          break;
+        case 'flower':
+          startOffset = '50%';
+          SVGPathD = 'M147.9,291.5c0,0,134.5-55.2,283.8,0';
+          break;
+        case 'heart':
+          startOffset = '48%';
+          SVGPathD = 'M138.4,238.5c0,0,168.4-50.8,310.2,57.2';
+          break;
+      }
+      return `
+        <div class="danmu-item">
+          <div class="balloon-wrap ${data.style}">
+            <div class="balloon-main">
+              <svg class="name" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 600 500">
+                <path id="${data.style}-name-path" d="${SVGPathD}" />
+                <text>
+                  <textPath  xlink:href="#${data.style}-name-path" startOffset="${startOffset}">${data.name}</textPath>
+                </text>
+              </svg>
+              <img src="./assets/img/balloon/${data.style}-balloon.png" alt="">
+              <img class="baseket" src="./assets/img/balloon/${data.style}-baseket.png" alt="">
+            </div>
+            <div class="msg-card">
+              <svg class="line" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 95" fill="none">
+                <path d="M21.2307 94C21.2307 94 28.6635 87.0915 26.6559 74.6184C26.6559 74.6184 26.2169 70.0392 22.6129 63.365C22.6129 63.365 21.2326 60.333 20.7468 58.2537C20.7468 58.2537 19.8371 52.8459 23.177 50.47C23.177 50.47 24.4942 49.7043 24.7923 51.1734C24.7923 51.1734 25.6199 53.4365 21.1511 55.2501C19.3587 55.8671 17.5017 56.2786 15.6159 56.4767C15.6159 56.4767 12.3942 57.1429 9.45918 56.0428C-7.6352 49.6344 6.47683 34.8099 6.47683 34.8099C21.9009 20.3948 20.1549 1 20.1549 1C20.1549 1 21.8978 20.3948 6.47367 34.8112C6.47367 34.8112 -7.63836 49.6356 9.45603 56.0441C12.3897 57.1442 15.6128 56.478 15.6128 56.478C17.4989 56.2789 19.3561 55.8663 21.1486 55.2482C25.6174 53.4346 24.7898 51.1715 24.7898 51.1715C24.4916 49.7024 23.1745 50.4681 23.1745 50.4681C19.8346 52.844 20.7443 58.2518 20.7443 58.2518C21.23 60.3299 22.6104 63.3631 22.6104 63.3631C26.2162 70.038 26.6534 74.6165 26.6534 74.6165C28.661 87.0896 21.2282 93.9981 21.2282 93.9981" stroke="#185F69" stroke-width="2" stroke-miterlimit="10"/>
+              </svg>
+              <div class="message">${data.content}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    };
+    function generateRandomNumber(previousNumber) {
+      let randomNumber;
+      do {
+        randomNumber = Math.floor(Math.random() * 3) + 1;
+      } while (randomNumber === previousNumber);
+
+      return randomNumber;
+    }
+    let randomNumber = generateRandomNumber(previousAisle);
+    previousAisle = randomNumber;
+
+    const aisle = $(`.aisle:nth-child(${randomNumber})`);
+    if (aisle.find('.danmu-item').length > 0) return;
+    aisle.append(danmuDOM(data));
+    danmuArray = danmuArray.slice(1);
+    update(ref(db), {
+      ['users/' + id]: {
+        status: 1,
+        style,
+        name,
+        content,
+        createdTime,
+      },
+    });
+    (function animationHandler() {
+      const danmuItem = `.aisle:nth-child(${randomNumber}) .danmu-item`;
+      const balloon = `.aisle:nth-child(${randomNumber}) .danmu-item .balloon-wrap`;
+      const rotateLeft = Math.floor(Math.random() * 3) + 1;
+      const rotateRight = Math.floor(Math.random() * 3) + 1;
+      // 彈幕上升動畫
+      const danmuRiseAnimation = gsap.fromTo(
+        danmuItem,
+        { transform: 'translate3d(0,0,0)' }, // From
+        {
+          transform: 'translate3d(0,calc(-100vh - 105%),0)', // To
+          ease: 'linear',
+          duration: $(danmuItem).innerHeight() / 67.556,
+          delay: 2,
+          onComplete() {
+            this.targets()[0].remove();
+          },
+        },
+      );
+      CustomEase.create('float', '0.5, 0, 0.5, 1');
+      const balloonFloatAnimation = gsap.to(balloon, {
+        keyframes: {
+          '0%': { transform: `rotate(-${rotateLeft}deg)` },
+          '50%': { transform: `rotate(${rotateRight}deg)` },
+          '100%': { transform: `rotate(-${rotateLeft}deg)` },
+        },
+        ease: 'float',
+        duration: 8,
+        repeat: -1,
+      });
+    })();
+  }
+
+  /**
+   * 發送彈幕
    */
   function showDanmu() {
     let checkTimeInterval;
     let danmuReady = false;
     checkTimeInterval = setInterval(() => {
       const now = new Date();
-      const startTime = new Date('2023-11-11T17:00:00'); // 發射彈幕開始時間
+      const startTime = new Date(danmuStartDate); // 發射彈幕開始時間
       if (startTime - now <= 0) {
         danmuReady = true;
         clearInterval(checkTimeInterval);
@@ -80,10 +204,15 @@ function messageHandler() {
     }, 1000);
     setInterval(() => {
       if (danmuReady) {
-        const firstElement = danmuArray.shift();
-        console.log(firstElement);
+        console.log(danmuArray);
+        if (danmuArray.length > 0) {
+          $('.bless-section').addClass('has-danmu');
+          createDanmu();
+        } else if (danmuArray.length <= 0 && $('.danmu-item').length <= 0) {
+          $('.bless-section').removeClass('has-danmu');
+        }
       }
-    }, 10000);
+    }, 2000);
   }
 
   // 留言表單相關
@@ -115,22 +244,30 @@ function messageHandler() {
     },
     eventHandler() {
       //留言
+      const viewBtn = $('.btn.view');
       const submitBtn = $('.btn.submit');
       const messageAside = $('.message-aside');
+      function alwaysScrollBottom() {
+        messageAside.scrollTop(messageAside.prop('scrollHeight'));
+      }
+      function messageAsideOpen() {
+        alwaysScrollBottom();
+        messageAside.addClass('show');
+        lock(messageAside[0]);
+      }
+      function messageAsideClose() {
+        messageAside.removeClass('show');
+        unlock(messageAside[0]);
+      }
+
       submitBtn.on('click', function () {
         formHandler.sendMessage();
         $('form input[type="text"], form textarea').val('');
+        // messageAsideOpen();
       });
-
       //查看所有留言
-      $('.btn.view').on('click', function () {
-        messageAside.addClass('show');
-        lock(messageAside[0]);
-      });
-      messageAside.on('click', '.back', function () {
-        messageAside.removeClass('show');
-        unlock(messageAside[0]);
-      });
+      viewBtn.on('click', messageAsideOpen);
+      messageAside.on('click', '.back', messageAsideClose);
     },
     all() {
       formHandler.eventHandler();
@@ -142,7 +279,7 @@ function messageHandler() {
   showDanmu();
 }
 
-export function messageInit() {
+export function messageInit(danmuStartDate) {
   firebaseConnect();
-  messageHandler();
+  messageHandler(danmuStartDate);
 }
