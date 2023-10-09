@@ -10,6 +10,42 @@ import { messageInit } from './message';
 import './anchor';
 
 /**
+ * 滑鼠游標跟隨
+ */
+function followMouseCursor() {
+  const body = $('body');
+  const cursor = $('.cursor');
+  const cursorItems = $('.cursor .cursor-item');
+
+  cursorItems.each((index, item) => {
+    const scale = (10 - index) / 10;
+    const delay = index / 10;
+    const opacityDelay = (cursorItems.length - 1 - index) / 20;
+    const zIndex = cursorItems.length - index;
+    $(item).css('--scale', scale);
+    $(item).css('--delay', `${delay}s`);
+    $(item).css('--zIndex', `${zIndex}`);
+    $(item).css('--opacity-delay', `${opacityDelay}s`);
+  });
+
+  function mousemoveHandler(e) {
+    const x = e.clientX;
+    const y = e.clientY;
+    cursor.css('--x', `${x - 10}px`);
+    cursor.css('--y', `${y - 10}px`);
+  }
+  function mouseenterHandler() {
+    cursorItems.addClass('hover');
+  }
+  function mouseleaveHandler() {
+    cursorItems.removeClass('hover');
+  }
+  body.on('mousemove', mousemoveHandler);
+  body.on('mouseenter', '[interactive]', mouseenterHandler);
+  body.on('mouseleave', '[interactive]', mouseleaveHandler);
+}
+
+/**
  * GSAP 動畫相關
  */
 function gsapHandler() {
@@ -55,16 +91,16 @@ function switchEventStatus(status) {
   const statusText = $('.status-text');
   switch (status) {
     case -1:
-      console.log('敬請期待');
+      // console.log('敬請期待');
       statusText.text('敬請期待').fadeIn();
       break;
     case 0:
-      console.log('活動即將開始');
+      // console.log('活動即將開始');
       statusText.fadeOut();
       $('.countdown-block').delay(1000).fadeIn();
       break;
     case 1:
-      console.log('活動開始');
+      // console.log('活動開始');
       $('.bless-section').addClass('start');
       $('.minutes').text('00');
       $('.seconds').text('00');
@@ -98,7 +134,6 @@ function countdown(seconds) {
     minutesEl.text(minutes);
     secondsEl.text(seconds);
     if (minutes == 0 && seconds == 0) {
-      console.log('倒數結束');
       switchEventStatus(1);
       clearInterval(countdownInterval);
     }
@@ -160,9 +195,10 @@ function finalTest(prepareDate, startDate) {
 
 (function () {
   const lazyLoadInstance = new LazyLoad();
+  followMouseCursor();
   gsapHandler();
   photoLightbox();
-  // setEventTime('2023-10-08T14:38:00', '2023-10-08T15:38:00');
-  // messageInit('2023-10-08T14:38:00');
-  finalTest('2023-10-08T15:30:00', '2023-10-08T16:30:00');
+  // setEventTime('2023-11-11T17:00:00', '2023-11-11T18:00:00');
+  // messageInit('2023-11-11T17:00:00');
+  finalTest('2023-10-09T15:10:00', '2023-10-09T15:11:00');
 })();

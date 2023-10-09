@@ -1,11 +1,13 @@
 import moment from 'moment';
 import { lock, unlock } from 'tua-body-scroll-lock';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, set, update, push, child, onValue } from 'firebase/database';
+import { getDatabase, ref, set, update, push, child, onValue, get } from 'firebase/database';
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
 import { gsap } from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
-gsap.registerPlugin(CustomEase);
 
+gsap.registerPlugin(CustomEase);
+let isLogin;
 /**
  * firebase 連線
  */
@@ -22,11 +24,43 @@ function firebaseConnect() {
 
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
+  const auth = getAuth();
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      // 已登入
+      isLogin = true;
+    } else {
+      // 未登入
+      isLogin = false;
+    }
+  });
+}
+
+function login(email, password) {
+  const auth = getAuth();
+  signInWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
+      console.log('login success');
+    })
+    .catch(error => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+}
+
+function logout() {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      console.log('Sign-out successful');
+    })
+    .catch(error => {
+      console.log('An error happened');
+    });
 }
 
 function messageHandler(danmuStartDate) {
   let danmuArray = [];
-  let previousAisle = Math.floor(Math.random() * 3) + 1; //上一個彈幕通道
   const msgWrap = $('.msg-wrap');
   const msgItemDOM = data => `<div class="msg-item">
       <div class="pic-box">
@@ -56,7 +90,6 @@ function messageHandler(danmuStartDate) {
         msgWrap.append(msgItemDOM(snapshot.val()[key]));
         const { status, style, name, content, createdTime } = snapshot.val()[key];
         const exists = danmuArray.some(item => item.id === key);
-        console.log(exists, 'exists');
         if (snapshot.val()[key].status === 0 && !exists) {
           danmuArray.push({
             id: key,
@@ -66,7 +99,6 @@ function messageHandler(danmuStartDate) {
             content,
             createdTime,
           });
-          console.log(danmuArray, 'push');
         }
       }
     });
@@ -131,20 +163,12 @@ function messageHandler(danmuStartDate) {
         </div>
       `;
     };
-    function generateRandomNumber(previousNumber) {
-      let randomNumber;
-      do {
-        randomNumber = Math.floor(Math.random() * 3) + 1;
-      } while (randomNumber === previousNumber);
 
-      return randomNumber;
-    }
-    let randomNumber = generateRandomNumber(previousAisle);
-    previousAisle = randomNumber;
-
-    const aisle = $(`.aisle:nth-child(${randomNumber})`);
-    if (aisle.find('.danmu-item').length > 0) return;
-    aisle.append(danmuDOM(data));
+    // 空的通道
+    const emptyAisle = $('.aisle').filter((index, item) => $(item).children().length <= 0);
+    if (emptyAisle.length <= 0) return;
+    const emptyAisleRandom = Math.floor(Math.random() * emptyAisle.length);
+    emptyAisle.eq(emptyAisleRandom).append(danmuDOM(data));
     danmuArray = danmuArray.slice(1);
     update(ref(db), {
       ['users/' + id]: {
@@ -156,8 +180,8 @@ function messageHandler(danmuStartDate) {
       },
     });
     (function animationHandler() {
-      const danmuItem = `.aisle:nth-child(${randomNumber}) .danmu-item`;
-      const balloon = `.aisle:nth-child(${randomNumber}) .danmu-item .balloon-wrap`;
+      const danmuItem = emptyAisle.eq(emptyAisleRandom).find('.danmu-item');
+      const balloon = emptyAisle.eq(emptyAisleRandom).find('.danmu-item .balloon-wrap');
       const rotateLeft = Math.floor(Math.random() * 3) + 1;
       const rotateRight = Math.floor(Math.random() * 3) + 1;
       // 彈幕上升動畫
@@ -168,7 +192,7 @@ function messageHandler(danmuStartDate) {
           transform: 'translate3d(0,calc(-100vh - 105%),0)', // To
           ease: 'linear',
           duration: $(danmuItem).innerHeight() / 67.556,
-          delay: 2,
+          delay: 0.5,
           onComplete() {
             this.targets()[0].remove();
           },
@@ -204,7 +228,6 @@ function messageHandler(danmuStartDate) {
     }, 1000);
     setInterval(() => {
       if (danmuReady) {
-        console.log(danmuArray);
         if (danmuArray.length > 0) {
           $('.bless-section').addClass('has-danmu');
           createDanmu();
@@ -213,6 +236,37 @@ function messageHandler(danmuStartDate) {
         }
       }
     }, 2000);
+  }
+
+  /**
+   * 重播彈幕
+   */
+  function replayDanmu() {
+    const db = getDatabase();
+    const dbRef = ref(db);
+
+    get(child(dbRef, 'users/'))
+      .then(snapshot => {
+        if (snapshot.exists()) {
+          for (const key in snapshot.val()) {
+            const { style, name, content, createdTime } = snapshot.val()[key];
+            update(dbRef, {
+              ['users/' + key]: {
+                status: 0,
+                style,
+                name,
+                content,
+                createdTime,
+              },
+            });
+          }
+        } else {
+          console.log('沒有資料');
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   // 留言表單相關
@@ -226,12 +280,11 @@ function messageHandler(danmuStartDate) {
       };
     },
     sendMessage() {
-      const data = formHandler.getData();
-      function setData(data) {
+      const { style, name, content, createdTime } = formHandler.getData();
+      function setData() {
         const db = getDatabase();
         const newKey = push(child(ref(db), 'users')).key;
         // 寫入資料
-        const { style, name, content, createdTime } = data;
         set(ref(db, 'users/' + newKey), {
           status: 0,
           style,
@@ -240,15 +293,46 @@ function messageHandler(danmuStartDate) {
           createdTime,
         });
       }
-      setData(data);
+      setData();
     },
     eventHandler() {
-      //留言
       const viewBtn = $('.btn.view');
       const submitBtn = $('.btn.submit');
       const messageAside = $('.message-aside');
+
+      /**
+       * 留言至最底部
+       */
       function alwaysScrollBottom() {
         messageAside.scrollTop(messageAside.prop('scrollHeight'));
+      }
+
+      function showSuccessTips() {
+        submitBtn.find('.success-tips').remove();
+        submitBtn.append('<div class="success-tips">已送出祝福</div>');
+        gsap.to(submitBtn.find('.success-tips'), {
+          keyframes: {
+            '0%': { opacity: '0', top: '0' },
+            '33.33%': { opacity: '1', top: '-10px' },
+            '90%': { opacity: '1', top: '-10px' },
+            '100%': { opacity: '0', top: '0' },
+          },
+          ease: 'linear',
+          duration: 1.5,
+          onComplete() {
+            this.targets()[0].remove();
+          },
+        });
+      }
+
+      function submit() {
+        showSuccessTips();
+        const styleSelected = $('form input[type="radio"]:checked').length > 0;
+        const inputtedName = $('form input#name').val() !== '';
+        const inputtedMessage = $('form textarea#message').val() !== '';
+        if (!styleSelected || !inputtedName || !inputtedMessage) return;
+        formHandler.sendMessage();
+        $('form textarea').val('');
       }
       function messageAsideOpen() {
         alwaysScrollBottom();
@@ -260,13 +344,11 @@ function messageHandler(danmuStartDate) {
         unlock(messageAside[0]);
       }
 
-      submitBtn.on('click', function () {
-        formHandler.sendMessage();
-        $('form input[type="text"], form textarea').val('');
-        // messageAsideOpen();
-      });
+      //送出
+      submitBtn.on('click', submit);
       //查看所有留言
       viewBtn.on('click', messageAsideOpen);
+      //返回
       messageAside.on('click', '.back', messageAsideClose);
     },
     all() {
@@ -277,6 +359,9 @@ function messageHandler(danmuStartDate) {
   formHandler.all();
   loadMessage();
   showDanmu();
+  window.login = login;
+  window.logout = logout;
+  window.replayDanmu = replayDanmu;
 }
 
 export function messageInit(danmuStartDate) {

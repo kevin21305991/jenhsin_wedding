@@ -11,7 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Philosopher:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/fonts/icomoon/style.css">
   </head>
-  <body>
+  <body class="custom-cursor">
+    <div class="cursor">
+      <div class="cursor-item"></div>
+      <div class="cursor-item"></div>
+      <div class="cursor-item"></div>
+      <div class="cursor-item"></div>
+      <div class="cursor-item"></div>
+    </div>
     <div id="app">
       <div class="wrap">
         <section class="bless-section">
@@ -82,11 +89,11 @@
             <img class="lazy" data-src="./assets/img/header.svg" alt="">
           </header>
           <ul class="anchor-bar" data-aost>
-            <li class="anchor-btn" anchor-target=".section-message">
+            <li class="anchor-btn" anchor-target=".section-message" interactive>
               <i class="icon-message"></i>
               <div class="text">我要留言</div>
             </li>
-            <li class="anchor-btn" anchor-target=".section-gallery">
+            <li class="anchor-btn" anchor-target=".section-gallery" interactive>
               <i class="icon-photo"></i>
               <div class="text">欣賞美照</div>
             </li>
@@ -129,7 +136,7 @@
                     <div class="row">
                       <div class="grid">
                         <div class="radio-item">
-                          <input id="sun" type="radio" name="message-pic" checked>
+                          <input id="sun" type="radio" name="message-pic" interactive checked>
                           <div class="pic-box">
                             <img class="lazy" data-src="./assets/img/balloon/sun.png" alt="">
                           </div>
@@ -137,7 +144,7 @@
                       </div>
                       <div class="grid">
                         <div class="radio-item">
-                          <input id="cloud" type="radio" name="message-pic">
+                          <input id="cloud" type="radio" name="message-pic" interactive>
                           <div class="pic-box">
                             <img class="lazy" data-src="./assets/img/balloon/cloud.png" alt="">
                           </div>
@@ -145,7 +152,7 @@
                       </div>
                       <div class="grid">
                         <div class="radio-item">
-                          <input id="moon" type="radio" name="message-pic">
+                          <input id="moon" type="radio" name="message-pic" interactive>
                           <div class="pic-box">
                             <img class="lazy" data-src="./assets/img/balloon/moon.png" alt="">
                           </div>
@@ -153,7 +160,7 @@
                       </div>
                       <div class="grid">
                         <div class="radio-item">
-                          <input id="star" type="radio" name="message-pic">
+                          <input id="star" type="radio" name="message-pic" interactive>
                           <div class="pic-box">
                             <img class="lazy" data-src="./assets/img/balloon/star.png" alt="">
                           </div>
@@ -161,7 +168,7 @@
                       </div>
                       <div class="grid">
                         <div class="radio-item">
-                          <input id="flower" type="radio" name="message-pic">
+                          <input id="flower" type="radio" name="message-pic" interactive>
                           <div class="pic-box">
                             <img class="lazy" data-src="./assets/img/balloon/flower.png" alt="">
                           </div>
@@ -169,7 +176,7 @@
                       </div>
                       <div class="grid">
                         <div class="radio-item">
-                          <input id="heart" type="radio" name="message-pic">
+                          <input id="heart" type="radio" name="message-pic" interactive>
                           <div class="pic-box">
                             <img class="lazy" data-src="./assets/img/balloon/heart.png" alt="">
                           </div>
@@ -185,7 +192,7 @@
                     <span class="en">Name</span>
                     <span class="ch">稱呼</span>
                   </label>
-                  <input id="name" type="text" placeholder="請留下新人易於辨別稱呼">
+                  <input id="name" type="text" placeholder="請留下新人易於辨別稱呼" interactive>
                 </div>
               </div>
               <div class="form-row"  data-aost data-aost-fadeUp>
@@ -194,13 +201,13 @@
                     <span class="en">Content</span>
                     <span class="ch">內容</span>
                   </label>
-                  <textarea id="message" placeholder="請填寫您的祝福內容"></textarea>
+                  <textarea id="message" placeholder="請填寫您的祝福內容" interactive></textarea>
                 </div>
               </div>
             </form>
             <div class="btn-group" data-aost data-aost-fadeUp>
-              <div class="btn submit">確定送出</div>
-              <div class="btn view">查看所有留言</div>
+              <div class="btn submit" interactive>確定送出</div>
+              <div class="btn view" interactive>查看所有留言</div>
             </div>
           </section>
           <section class="section-banner" data-aost data-aost-clipLeft data-aost-start="80%">
@@ -214,73 +221,73 @@
             <div class="gallery-wrap">
               <div class="row">
                 <div class="grid w-50 h-50" data-aost>
-                  <a href="./assets/img/album/photo01.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo01.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo01-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50 h-50" data-aost>
-                  <a href="./assets/img/album/photo02.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo02.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo02-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-100" data-aost>
-                  <a href="./assets/img/album/photo03.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo03.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo03-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo04.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo04.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo04-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo05.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo05.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo05-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-100" data-aost>
-                  <a href="./assets/img/album/photo06.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo06.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo06-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50 h-50" data-aost>
-                  <a href="./assets/img/album/photo07.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo07.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo07-cover.jpg" alt="">
                   </a>
-                  <a href="./assets/img/album/photo08.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo08.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo08-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo09.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo09.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo09-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50 h-50" data-aost>
-                  <a href="./assets/img/album/photo10.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo10.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo10-cover.jpg" alt="">
                   </a>
-                  <a href="./assets/img/album/photo11.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo11.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo11-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo12.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo12.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo12-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo13.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo13.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo13-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo14.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo14.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo14-cover.jpg" alt="">
                   </a>
                 </div>
                 <div class="grid w-100 large" data-aost>
-                  <a href="./assets/img/album/photo15.jpg" class="item" data-fancybox="gallery">
+                  <a href="./assets/img/album/photo15.jpg" class="item" data-fancybox="gallery" interactive>
                     <img class="lazy" data-src="./assets/img/album/photo15-cover.jpg" alt="">
                   </a>
                 </div>
@@ -290,7 +297,7 @@
           <footer>
             <div class="back-top" data-aost data-aost-fade>
               <div class="line"></div>
-              <div class="text anchor-btn">Top</div>
+              <div class="text anchor-btn" interactive>Top</div>
             </div>
             <div class="heart">
               <svg width="266" height="49" viewBox="0 0 266 49" fill="none" xmlns="http://www.w3.org/2000/svg">
