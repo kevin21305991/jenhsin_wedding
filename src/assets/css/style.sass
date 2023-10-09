@@ -144,24 +144,27 @@ body
     overflow: hidden
 
 // 側邊留言區
-.message-aside
+.aside-wrap
   position: fixed
   top: 0
   right: 0
   width: min(100%,420px)
   height: 100dvh
   background-color: #fff
-  overflow: auto
   opacity: 0
   transform: translate3d(100%,0,0)
   transition: opacity .6s, transform .6s
   z-index: 1
-  +rwdmin(1201)
-    &::-webkit-scrollbar
-      display: none
   &.show
     opacity: 1
     transform: translate3d(0,0,0)
+.message-aside
+  width: 100%
+  height: 100%
+  overflow: auto
+  +rwdmin(1201)
+    &::-webkit-scrollbar
+      display: none
   .aside-header
     position: sticky
     top: 0
@@ -247,6 +250,22 @@ body
           text-align: left
           word-break: break-word
           white-space: pre-wrap
+  .new-tips
+    position: absolute
+    left: 50%
+    bottom: 20px
+    background-color: rgba(#ECECEC,.8)
+    padding: 10px
+    border-radius: 4px
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.3)
+    opacity: 0
+    transform: translate3d(-50%,calc(100% + 20px),0)
+    transition: opacity .5s, transform .5s
+    user-select: none
+    z-index: 10
+    &.show
+      opacity: 1
+      transform: translate3d(-50%,0,0)
 
 // 倒數計時
 .countdown-wrap

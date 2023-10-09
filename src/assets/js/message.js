@@ -61,6 +61,7 @@ function logout() {
 
 function messageHandler(danmuStartDate) {
   let danmuArray = [];
+  const messageAside = $('.message-aside');
   const msgWrap = $('.msg-wrap');
   const msgItemDOM = data => `<div class="msg-item">
       <div class="pic-box">
@@ -85,11 +86,17 @@ function messageHandler(danmuStartDate) {
     const dbRef = ref(db, '/users/');
     onValue(dbRef, snapshot => {
       if (!snapshot.exists()) return;
+      const isBottom = messageAside.scrollTop() >= messageAside.prop('scrollHeight') - $(window).innerHeight();
       msgWrap.empty();
+      if (isBottom) {
+        $('.new-tips').removeClass('show');
+      } else {
+        $('.new-tips').addClass('show');
+      }
       for (const key in snapshot.val()) {
-        msgWrap.append(msgItemDOM(snapshot.val()[key]));
         const { status, style, name, content, createdTime } = snapshot.val()[key];
         const exists = danmuArray.some(item => item.id === key);
+        msgWrap.append(msgItemDOM(snapshot.val()[key]));
         if (snapshot.val()[key].status === 0 && !exists) {
           danmuArray.push({
             id: key,
@@ -295,14 +302,21 @@ function messageHandler(danmuStartDate) {
       }
       setData();
     },
-    scrollBottom() {
+    scrollBottom(duration = 0) {
       const messageAside = $('.message-aside');
-      messageAside.scrollTop(messageAside.prop('scrollHeight'));
+      messageAside.animate(
+        {
+          scrollTop: messageAside.prop('scrollHeight'),
+        },
+        duration,
+      );
     },
     eventHandler() {
       const viewBtn = $('.btn.view');
       const submitBtn = $('.btn.submit');
+      const asideWrap = $('.aside-wrap');
       const messageAside = $('.message-aside');
+      const newTips = $('.new-tips');
 
       function showSuccessTips() {
         submitBtn.find('.success-tips').remove();
@@ -334,13 +348,20 @@ function messageHandler(danmuStartDate) {
 
       function messageAsideOpen() {
         formHandler.scrollBottom();
-        messageAside.addClass('show');
+        asideWrap.addClass('show');
         lock(messageAside[0]);
       }
 
       function messageAsideClose() {
-        messageAside.removeClass('show');
+        asideWrap.removeClass('show');
         unlock(messageAside[0]);
+      }
+
+      function bottomDetect() {
+        const isBottom = messageAside.scrollTop() >= messageAside.prop('scrollHeight') - $(window).innerHeight();
+        if (isBottom) {
+          newTips.removeClass('show');
+        }
       }
 
       //送出
@@ -349,6 +370,11 @@ function messageHandler(danmuStartDate) {
       viewBtn.on('click', messageAsideOpen);
       //返回
       messageAside.on('click', '.back', messageAsideClose);
+      //點擊新祝福提示
+      messageAside.on('click', '.new-tips', function () {
+        formHandler.scrollBottom(600);
+      });
+      messageAside.on('scroll', bottomDetect);
     },
     all() {
       formHandler.eventHandler();
