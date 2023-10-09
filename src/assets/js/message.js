@@ -295,17 +295,14 @@ function messageHandler(danmuStartDate) {
       }
       setData();
     },
+    scrollBottom() {
+      const messageAside = $('.message-aside');
+      messageAside.scrollTop(messageAside.prop('scrollHeight'));
+    },
     eventHandler() {
       const viewBtn = $('.btn.view');
       const submitBtn = $('.btn.submit');
       const messageAside = $('.message-aside');
-
-      /**
-       * 留言至最底部
-       */
-      function scrollBottom() {
-        messageAside.scrollTop(messageAside.prop('scrollHeight'));
-      }
 
       function showSuccessTips() {
         submitBtn.find('.success-tips').remove();
@@ -336,7 +333,7 @@ function messageHandler(danmuStartDate) {
       }
 
       function messageAsideOpen() {
-        scrollBottom();
+        formHandler.scrollBottom();
         messageAside.addClass('show');
         lock(messageAside[0]);
       }
