@@ -303,7 +303,7 @@ function messageHandler(danmuStartDate) {
       /**
        * 留言至最底部
        */
-      function alwaysScrollBottom() {
+      function scrollBottom() {
         messageAside.scrollTop(messageAside.prop('scrollHeight'));
       }
 
@@ -334,11 +334,13 @@ function messageHandler(danmuStartDate) {
         formHandler.sendMessage();
         $('form textarea').val('');
       }
+
       function messageAsideOpen() {
-        alwaysScrollBottom();
+        scrollBottom();
         messageAside.addClass('show');
         lock(messageAside[0]);
       }
+
       function messageAsideClose() {
         messageAside.removeClass('show');
         unlock(messageAside[0]);
@@ -356,12 +358,22 @@ function messageHandler(danmuStartDate) {
     },
   };
 
+  function autoScrollBottom() {
+    const db = getDatabase();
+    const dbRef = ref(db, '/users/');
+    onValue(dbRef, snapshot => {
+      if (!snapshot.exists()) return;
+      formHandler.scrollBottom();
+    });
+  }
+
   formHandler.all();
   loadMessage();
   showDanmu();
   window.login = login;
   window.logout = logout;
   window.replayDanmu = replayDanmu;
+  window.autoScrollBottom = autoScrollBottom;
 }
 
 export function messageInit(danmuStartDate) {
