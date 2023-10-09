@@ -10,7 +10,8 @@ body,input,textarea
 
 body
   &.custom-cursor
-    cursor: none
+    +rwdmin(1201)
+      cursor: none
   +rwdmin(1201)
     &::-webkit-scrollbar
       display: none
