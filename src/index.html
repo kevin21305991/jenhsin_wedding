@@ -74,7 +74,7 @@
                 <img class="lazy" data-src="./assets/img/header.svg" alt="">
               </div>
               <div class="sticky-wrap">
-                <div class="back">
+                <div class="back" interactive>
                   <i class="icon-arrow-left"></i>
                   <div class="text">
                     <span>BACK</span>
@@ -100,219 +100,244 @@
               <div class="text">欣賞美照</div>
             </li>
           </ul>
-          <section class="section-newlywed" data-aost>
-            <div class="layer background">
-              <img class="bg lazy" data-src="./assets/img/newlywed/background.png" alt="">
+          <section class="section-countdown" data-aost>
+            <div class="countdown-text">
+              <img class="lazy" data-src="./assets/img/countdown-text.png" alt="">
             </div>
-            <div class="layer flower">
-              <img class="lazy" data-src="./assets/img/newlywed/flower.png" alt="">
-            </div>
-            <div class="layer text">
-              <img class="lazy" data-src="./assets/img/newlywed/text.png" alt="">
-            </div>
-            <div class="layer grass">
-              <img class="lazy" data-src="./assets/img/newlywed/grass.png" alt="">
-            </div>
-            <div class="layer people">
-              <img class="lazy" data-src="./assets/img/newlywed/people.png" alt="">
-            </div>
-            <div class="layer cat">
-              <img class="lazy" data-src="./assets/img/newlywed/cat.png" alt="">
+            <div class="countdown-wrap">
+              <div class="title">♬ 婚禮倒數時間 ♬</div>
+              <div class="status-text"></div>
+              <div class="countdown-block">
+                <div class="countdown">
+                  <div class="time-wrap">
+                    <div class="minutes"></div>
+                    <div>mins</div>
+                  </div>
+                  <div class="colon"></div>
+                  <div class="time-wrap">
+                    <div class="seconds"></div>
+                    <div>secs</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
-          <section class="section-message">
-            <div class="section-header" data-aost data-aost-fadeUp>
-              <div class="title-ch">給予祝福</div>
-              <div class="title-en">Give blessing</div>
-              <p>請填入您的稱呼以及祝福內容，我們將會在宴會螢幕上投影出來，謝謝！</p>
-            </div>
-            <form>
-              <div class="form-row"  data-aost data-aost-fadeUp>
-                <div class="form-group pic-select">
-                  <label>
-                    <span class="en">Pic</span>
-                    <span class="ch">留言圖案</span>
-                  </label>
-                  <input type="text" placeholder="請選擇留言使用的圖案" readonly>
-                  <div class="radio-wrap">
-                    <div class="row">
-                      <div class="grid">
-                        <div class="radio-item">
-                          <input id="sun" type="radio" name="message-pic" interactive checked>
-                          <div class="pic-box">
-                            <img class="lazy" data-src="./assets/img/balloon/sun.png" alt="">
+          <div class="section-wrap" data-aost>
+            <section class="section-newlywed" data-aost>
+              <div class="layer background">
+                <img class="bg lazy" data-src="./assets/img/newlywed/background.png" alt="">
+              </div>
+              <div class="layer flower">
+                <img class="lazy" data-src="./assets/img/newlywed/flower.png" alt="">
+              </div>
+              <div class="layer text">
+                <img class="lazy" data-src="./assets/img/newlywed/text.png" alt="">
+              </div>
+              <div class="layer grass">
+                <img class="lazy" data-src="./assets/img/newlywed/grass.png" alt="">
+              </div>
+              <div class="layer people">
+                <img class="lazy" data-src="./assets/img/newlywed/people.png" alt="">
+              </div>
+              <div class="layer cat">
+                <img class="lazy" data-src="./assets/img/newlywed/cat.png" alt="">
+              </div>
+            </section>
+            <section class="section-message">
+              <div class="section-header" data-aost data-aost-fadeUp data-aost-start="85%">
+                <div class="title-ch">給予祝福</div>
+                <div class="title-en">Give blessing</div>
+                <p>請填入您的稱呼以及祝福內容，我們將會在宴會螢幕上投影出來，謝謝！</p>
+              </div>
+              <form>
+                <div class="form-row"  data-aost data-aost-fadeUp>
+                  <div class="form-group pic-select">
+                    <label>
+                      <span class="en">Pic</span>
+                      <span class="ch">留言圖案</span>
+                    </label>
+                    <input type="text" placeholder="請選擇留言使用的圖案" readonly>
+                    <div class="radio-wrap">
+                      <div class="row">
+                        <div class="grid">
+                          <div class="radio-item">
+                            <input id="sun" type="radio" name="message-pic" interactive checked>
+                            <div class="pic-box">
+                              <img class="lazy" data-src="./assets/img/balloon/sun.png" alt="">
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="grid">
-                        <div class="radio-item">
-                          <input id="cloud" type="radio" name="message-pic" interactive>
-                          <div class="pic-box">
-                            <img class="lazy" data-src="./assets/img/balloon/cloud.png" alt="">
+                        <div class="grid">
+                          <div class="radio-item">
+                            <input id="cloud" type="radio" name="message-pic" interactive>
+                            <div class="pic-box">
+                              <img class="lazy" data-src="./assets/img/balloon/cloud.png" alt="">
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="grid">
-                        <div class="radio-item">
-                          <input id="moon" type="radio" name="message-pic" interactive>
-                          <div class="pic-box">
-                            <img class="lazy" data-src="./assets/img/balloon/moon.png" alt="">
+                        <div class="grid">
+                          <div class="radio-item">
+                            <input id="moon" type="radio" name="message-pic" interactive>
+                            <div class="pic-box">
+                              <img class="lazy" data-src="./assets/img/balloon/moon.png" alt="">
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="grid">
-                        <div class="radio-item">
-                          <input id="star" type="radio" name="message-pic" interactive>
-                          <div class="pic-box">
-                            <img class="lazy" data-src="./assets/img/balloon/star.png" alt="">
+                        <div class="grid">
+                          <div class="radio-item">
+                            <input id="star" type="radio" name="message-pic" interactive>
+                            <div class="pic-box">
+                              <img class="lazy" data-src="./assets/img/balloon/star.png" alt="">
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="grid">
-                        <div class="radio-item">
-                          <input id="flower" type="radio" name="message-pic" interactive>
-                          <div class="pic-box">
-                            <img class="lazy" data-src="./assets/img/balloon/flower.png" alt="">
+                        <div class="grid">
+                          <div class="radio-item">
+                            <input id="flower" type="radio" name="message-pic" interactive>
+                            <div class="pic-box">
+                              <img class="lazy" data-src="./assets/img/balloon/flower.png" alt="">
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="grid">
-                        <div class="radio-item">
-                          <input id="heart" type="radio" name="message-pic" interactive>
-                          <div class="pic-box">
-                            <img class="lazy" data-src="./assets/img/balloon/heart.png" alt="">
+                        <div class="grid">
+                          <div class="radio-item">
+                            <input id="heart" type="radio" name="message-pic" interactive>
+                            <div class="pic-box">
+                              <img class="lazy" data-src="./assets/img/balloon/heart.png" alt="">
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="form-row"  data-aost data-aost-fadeUp>
+                  <div class="form-group">
+                    <label for="name">
+                      <span class="en">Name</span>
+                      <span class="ch">稱呼</span>
+                    </label>
+                    <input id="name" type="text" placeholder="請留下新人易於辨別稱呼" interactive>
+                  </div>
+                </div>
+                <div class="form-row"  data-aost data-aost-fadeUp>
+                  <div class="form-group">
+                    <label for="message">
+                      <span class="en">Content</span>
+                      <span class="ch">內容</span>
+                    </label>
+                    <textarea id="message" placeholder="請填寫您的祝福內容" interactive></textarea>
+                  </div>
+                </div>
+              </form>
+              <div class="btn-group" data-aost data-aost-fadeUp data-aost-start="85%">
+                <div class="btn submit" interactive>確定送出</div>
+                <div class="btn view" interactive>查看所有留言</div>
               </div>
-              <div class="form-row"  data-aost data-aost-fadeUp>
-                <div class="form-group">
-                  <label for="name">
-                    <span class="en">Name</span>
-                    <span class="ch">稱呼</span>
-                  </label>
-                  <input id="name" type="text" placeholder="請留下新人易於辨別稱呼" interactive>
+            </section>
+            <section class="section-banner" data-aost data-aost-clipLeft data-aost-start="80%">
+              <img class="lazy" data-src="./assets/img/banner.jpg" alt="">
+            </section>
+            <section class="section-gallery">
+              <div class="section-header" data-aost data-aost-fadeUp>
+                <div class="title-ch">婚紗照分享</div>
+                <div class="title-en">Pre-wedding Photo</div>
+                <div class="sub-title">仁者相伴，欣然共襄</div>
+              </div>
+              <div class="gallery-wrap">
+                <div class="row">
+                  <div class="grid w-50 h-50" data-aost>
+                    <a href="./assets/img/album/photo01.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo01-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50 h-50" data-aost>
+                    <a href="./assets/img/album/photo02.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo02-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-100" data-aost>
+                    <a href="./assets/img/album/photo03.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo03-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50" data-aost>
+                    <a href="./assets/img/album/photo04.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo04-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50" data-aost>
+                    <a href="./assets/img/album/photo05.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo05-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-100" data-aost>
+                    <a href="./assets/img/album/photo06.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo06-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50 h-50" data-aost>
+                    <a href="./assets/img/album/photo07.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo07-cover.jpg" alt="">
+                    </a>
+                    <a href="./assets/img/album/photo08.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo08-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50" data-aost>
+                    <a href="./assets/img/album/photo09.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo09-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50 h-50" data-aost>
+                    <a href="./assets/img/album/photo10.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo10-cover.jpg" alt="">
+                    </a>
+                    <a href="./assets/img/album/photo11.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo11-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50" data-aost>
+                    <a href="./assets/img/album/photo12.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo12-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50" data-aost>
+                    <a href="./assets/img/album/photo13.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo13-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-50" data-aost>
+                    <a href="./assets/img/album/photo14.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo14-cover.jpg" alt="">
+                    </a>
+                  </div>
+                  <div class="grid w-100 large" data-aost>
+                    <a href="./assets/img/album/photo15.jpg" class="item" data-fancybox="gallery" interactive>
+                      <img class="lazy" data-src="./assets/img/album/photo15-cover.jpg" alt="">
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div class="form-row"  data-aost data-aost-fadeUp>
-                <div class="form-group">
-                  <label for="message">
-                    <span class="en">Content</span>
-                    <span class="ch">內容</span>
-                  </label>
-                  <textarea id="message" placeholder="請填寫您的祝福內容" interactive></textarea>
-                </div>
+            </section>
+            <footer>
+              <div class="back-top" data-aost data-aost-fade>
+                <div class="line"></div>
+                <div class="text anchor-btn" interactive>Top</div>
               </div>
-            </form>
-            <div class="btn-group" data-aost data-aost-fadeUp data-aost-start="85%">
-              <div class="btn submit" interactive>確定送出</div>
-              <div class="btn view" interactive>查看所有留言</div>
-            </div>
-          </section>
-          <section class="section-banner" data-aost data-aost-clipLeft data-aost-start="80%">
-            <img class="lazy" data-src="./assets/img/banner.jpg" alt="">
-          </section>
-          <section class="section-gallery">
-            <div class="section-header" data-aost data-aost-fadeUp>
-              <div class="title-ch">婚紗照分享</div>
-              <div class="title-en">Pre-wedding Photo</div>
-            </div>
-            <div class="gallery-wrap">
-              <div class="row">
-                <div class="grid w-50 h-50" data-aost>
-                  <a href="./assets/img/album/photo01.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo01-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50 h-50" data-aost>
-                  <a href="./assets/img/album/photo02.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo02-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-100" data-aost>
-                  <a href="./assets/img/album/photo03.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo03-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo04.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo04-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo05.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo05-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-100" data-aost>
-                  <a href="./assets/img/album/photo06.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo06-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50 h-50" data-aost>
-                  <a href="./assets/img/album/photo07.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo07-cover.jpg" alt="">
-                  </a>
-                  <a href="./assets/img/album/photo08.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo08-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo09.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo09-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50 h-50" data-aost>
-                  <a href="./assets/img/album/photo10.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo10-cover.jpg" alt="">
-                  </a>
-                  <a href="./assets/img/album/photo11.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo11-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo12.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo12-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo13.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo13-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-50" data-aost>
-                  <a href="./assets/img/album/photo14.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo14-cover.jpg" alt="">
-                  </a>
-                </div>
-                <div class="grid w-100 large" data-aost>
-                  <a href="./assets/img/album/photo15.jpg" class="item" data-fancybox="gallery" interactive>
-                    <img class="lazy" data-src="./assets/img/album/photo15-cover.jpg" alt="">
-                  </a>
-                </div>
+              <div class="heart">
+                <svg width="266" height="49" viewBox="0 0 266 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M265 41.192C260.998 43.3647 255.915 44.8769 249.558 44.7764C215.274 44.2367 198.601 29.7677 174.923 27.9901C164.551 27.2114 157.137 30.2456 153.018 34.2092C150.724 36.4136 151.197 39.3782 154.672 37.157C164.425 30.922 171.67 9.31849 164.687 5.17415C159.537 2.11704 151.549 15.0059 150.648 26.1313C151.988 18.6538 146.486 -0.074165 137.233 1.04833C126.727 2.32338 134.12 34.2436 147.123 45.2508C153.94 51.0229 158.952 46.8803 152.654 40.4372C148.422 36.1068 139.457 30.4458 126.495 30.0587C107.175 29.482 87.9068 42.8259 47.554 39.1956C30.9684 37.7046 14.2083 32.727 1.00001 26.2538" stroke="#E30613" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-            </div>
-          </section>
-          <footer>
-            <div class="back-top" data-aost data-aost-fade>
-              <div class="line"></div>
-              <div class="text anchor-btn" interactive>Top</div>
-            </div>
-            <div class="heart">
-              <svg width="266" height="49" viewBox="0 0 266 49" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M265 41.192C260.998 43.3647 255.915 44.8769 249.558 44.7764C215.274 44.2367 198.601 29.7677 174.923 27.9901C164.551 27.2114 157.137 30.2456 153.018 34.2092C150.724 36.4136 151.197 39.3782 154.672 37.157C164.425 30.922 171.67 9.31849 164.687 5.17415C159.537 2.11704 151.549 15.0059 150.648 26.1313C151.988 18.6538 146.486 -0.074165 137.233 1.04833C126.727 2.32338 134.12 34.2436 147.123 45.2508C153.94 51.0229 158.952 46.8803 152.654 40.4372C148.422 36.1068 139.457 30.4458 126.495 30.0587C107.175 29.482 87.9068 42.8259 47.554 39.1956C30.9684 37.7046 14.2083 32.727 1.00001 26.2538" stroke="#E30613" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="epilog">
-              <div class="ch" data-aost data-aost-fadeUp data-aost-start="100%">
-                <img class="lazy" data-src="./assets/img/footer-text.svg" alt="">
+              <div class="epilog">
+                <div class="ch" data-aost data-aost-fadeUp data-aost-start="100%">
+                  <img class="lazy" data-src="./assets/img/footer-text.svg" alt="">
+                </div>
+                <div class="en" data-aost data-aost-fadeUp data-aost-start="100%">Beautiful Moments Infinitely extended</div>
               </div>
-              <div class="en" data-aost data-aost-fadeUp data-aost-start="100%">Beautiful Moments Infinitely extended</div>
-            </div>
-          </footer>
+            </footer>
+          </div>
         </main>
       </div>
     </div>
