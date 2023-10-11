@@ -84,13 +84,15 @@ function messageHandler(danmuStartDate) {
   function loadMessage() {
     const db = getDatabase();
     const dbRef = ref(db, '/users/');
+    let messageLength = 0;
     onValue(dbRef, snapshot => {
       if (!snapshot.exists()) return;
+      const dataArray = Object.values(snapshot.val()).map(item => item);
       const isBottom = messageAside.scrollTop() >= messageAside.prop('scrollHeight') - $(window).innerHeight();
       msgWrap.empty();
       if (isBottom) {
         $('.new-tips').removeClass('show');
-      } else {
+      } else if (!isBottom && dataArray.length != messageLength) {
         $('.new-tips').addClass('show');
       }
       for (const key in snapshot.val()) {
@@ -108,6 +110,7 @@ function messageHandler(danmuStartDate) {
           });
         }
       }
+      messageLength = dataArray.length;
     });
   }
 
@@ -385,18 +388,17 @@ function messageHandler(danmuStartDate) {
     const db = getDatabase();
     const dbRef = ref(db, '/users/');
     onValue(dbRef, snapshot => {
-      if (!snapshot.exists()) return;
-      formHandler.scrollBottom();
+      if (snapshot.exists() && $('.view-new input[type="checkbox"]').prop('checked')) {
+        formHandler.scrollBottom();
+      }
     });
   }
 
   formHandler.all();
   loadMessage();
   showDanmu();
-  window.login = login;
-  window.logout = logout;
+  autoScrollBottom();
   window.replayDanmu = replayDanmu;
-  window.autoScrollBottom = autoScrollBottom;
 }
 
 export function messageInit(danmuStartDate) {
