@@ -151,10 +151,10 @@ function messageHandler(danmuStartDate) {
         <div class="danmu-item">
           <div class="balloon-wrap ${data.style}">
             <div class="balloon-main">
-              <svg class="name" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 600 500">
+              <svg class="name" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 600 500">
                 <path id="${data.style}-name-path" d="${SVGPathD}" />
-                <text>
-                  <textPath  xlink:href="#${data.style}-name-path" startOffset="${startOffset}">${data.name}</textPath>
+                <text x="0" y="0" alignment-baseline="middle" text-anchor="middle" dominant-baseline="middle">
+                  <textPath href="#${data.style}-name-path" startOffset="${startOffset}">${data.name}</textPath>
                 </text>
               </svg>
               <img src="./assets/img/balloon/${data.style}-balloon.png" alt="">
