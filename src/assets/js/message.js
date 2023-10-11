@@ -124,27 +124,27 @@ function messageHandler(danmuStartDate) {
       switch (data.style) {
         case 'sun':
           startOffset = '46%';
-          SVGPathD = 'M162.6,310.4c0,0,103.4-36.1,232.1,0.5c0,0,28.4,8.5,39.4,4.8';
+          SVGPathD = 'M162.6,322.4c0,0,103.4-36.1,232.1,0.5c0,0,28.4,8.5,39.4,4.8';
           break;
         case 'cloud':
           startOffset = '50%';
-          SVGPathD = 'M110.9 222.2, L458.9 222.2';
+          SVGPathD = 'M110.9 236.2, L458.9 236.2';
           break;
         case 'moon':
           startOffset = '55%';
-          SVGPathD = 'M136.2,273c0,0,100.3-36.2,260.5,20.1';
+          SVGPathD = 'M137.2,286c0,0,100.3-36.2,260.5,20.1';
           break;
         case 'star':
           startOffset = '50%';
-          SVGPathD = 'M147.9,265.5c0,0,134.5-55.2,283.8,0';
+          SVGPathD = 'M147.9,280.5c0,0,134.5-55.2,283.8,0';
           break;
         case 'flower':
           startOffset = '50%';
-          SVGPathD = 'M147.9,291.5c0,0,134.5-55.2,283.8,0';
+          SVGPathD = 'M147.9,305.5c0,0,134.5-55.2,283.8,0';
           break;
         case 'heart':
           startOffset = '48%';
-          SVGPathD = 'M138.4,238.5c0,0,168.4-50.8,310.2,57.2';
+          SVGPathD = 'M138.4,250.5c0,0,168.4-50.8,310.2,57.2';
           break;
       }
       return `
@@ -153,7 +153,7 @@ function messageHandler(danmuStartDate) {
             <div class="balloon-main">
               <svg class="name" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 600 500">
                 <path id="${data.style}-name-path" d="${SVGPathD}" />
-                <text x="0" y="0" alignment-baseline="middle" text-anchor="middle" dominant-baseline="middle">
+                <text x="0" y="0" text-anchor="middle">
                   <textPath href="#${data.style}-name-path" startOffset="${startOffset}">${data.name}</textPath>
                 </text>
               </svg>
