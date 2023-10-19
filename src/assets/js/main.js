@@ -200,5 +200,5 @@ function finalTest(prepareDate, startDate) {
   photoLightbox();
   setEventTime('2023-11-11T17:15:00', '2023-11-11T18:15:00');
   messageInit('2023-11-11T17:45:00');
-  // finalTest('2023-10-13T10:12:00', '2023-10-13T10:17:00');
+  // finalTest('2023-10-19T22:28:00', '2023-10-19T23:00:00');
 })();

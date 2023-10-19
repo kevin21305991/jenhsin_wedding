@@ -180,15 +180,20 @@ function messageHandler(danmuStartDate) {
     const emptyAisleRandom = Math.floor(Math.random() * emptyAisle.length);
     emptyAisle.eq(emptyAisleRandom).append(danmuDOM(data));
     danmuArray = danmuArray.slice(1);
-    update(ref(db), {
-      ['users/' + id]: {
-        status: 1,
-        style,
-        name,
-        content,
-        createdTime,
-      },
-    });
+    const searchParams = new URL(document.location).searchParams;
+    const key = searchParams.get('key');
+    console.log(key);
+    if (key === 'Yg4wSH8HVgkc') {
+      update(ref(db), {
+        ['users/' + id]: {
+          status: 1,
+          style,
+          name,
+          content,
+          createdTime,
+        },
+      });
+    }
     (function animationHandler() {
       const danmuItem = emptyAisle.eq(emptyAisleRandom).find('.danmu-item');
       const balloon = emptyAisle.eq(emptyAisleRandom).find('.danmu-item .balloon-wrap');
