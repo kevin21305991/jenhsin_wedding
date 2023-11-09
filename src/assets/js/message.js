@@ -182,7 +182,6 @@ function messageHandler(danmuStartDate) {
     danmuArray = danmuArray.slice(1);
     const searchParams = new URL(document.location).searchParams;
     const key = searchParams.get('key');
-    console.log(key);
     if (key === 'Yg4wSH8HVgkc') {
       update(ref(db), {
         ['users/' + id]: {
@@ -206,7 +205,7 @@ function messageHandler(danmuStartDate) {
         {
           transform: 'translate3d(0,calc(-100vh - 105%),0)', // To
           ease: 'linear',
-          duration: $(danmuItem).innerHeight() / 67.556,
+          duration: $(danmuItem).innerHeight() / 50,
           delay: 0.5,
           onComplete() {
             this.targets()[0].remove();

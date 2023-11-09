@@ -200,5 +200,10 @@ function finalTest(prepareDate, startDate) {
   photoLightbox();
   setEventTime('2023-11-11T17:15:00', '2023-11-11T18:15:00');
   messageInit('2023-11-11T17:45:00');
-  // finalTest('2023-10-19T22:28:00', '2023-10-19T23:00:00');
+  // finalTest('2023-11-10T01:00:00', '2023-11-10T01:01:00');
+  const searchParams = new URL(document.location).searchParams;
+  const key = searchParams.get('key');
+  if (key === 'Yg4wSH8HVgkc') {
+    $('main').hide();
+  }
 })();
