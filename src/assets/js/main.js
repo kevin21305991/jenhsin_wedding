@@ -198,9 +198,9 @@ function finalTest(prepareDate, startDate) {
   followMouseCursor();
   gsapHandler();
   photoLightbox();
-  setEventTime('2023-11-11T17:15:00', '2023-11-11T18:15:00');
-  messageInit('2023-11-11T17:45:00');
-  // finalTest('2023-11-10T01:00:00', '2023-11-10T01:01:00');
+  setEventTime('2023-11-11T17:10:00', '2023-11-11T18:10:00');
+  messageInit('2023-11-11T18:00:00');
+  // finalTest('2023-11-10T13:00:00', '2023-11-10T13:01:00');
   const searchParams = new URL(document.location).searchParams;
   const key = searchParams.get('key');
   if (key === 'Yg4wSH8HVgkc') {
