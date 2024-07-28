@@ -190,17 +190,22 @@ function photoLightbox() {
  */
 function finalTest(prepareDate, startDate) {
   setEventTime(prepareDate, startDate);
-  messageInit(prepareDate);
+  messageInit(startDate);
 }
 
 (function () {
   const lazyLoadInstance = new LazyLoad();
+  const startDate = new Date();
+  const endDate = new Date(startDate);
+  const messagePostDate = new Date(startDate);
+  endDate.setSeconds(endDate.getSeconds() + 11);
+  messagePostDate.setSeconds(messagePostDate.getSeconds() + 13);
   followMouseCursor();
   gsapHandler();
   photoLightbox();
-  setEventTime('2023-11-11T17:10:00', '2023-11-11T18:10:00');
-  messageInit('2023-11-11T18:00:00');
-  // finalTest('2023-11-10T13:00:00', '2023-11-10T13:01:00');
+  setEventTime(startDate, endDate);
+  messageInit(messagePostDate);
+  // finalTest('2023-11-13T02:08:00', '2023-11-13T02:08:31');
   const searchParams = new URL(document.location).searchParams;
   const key = searchParams.get('key');
   if (key === 'Yg4wSH8HVgkc') {

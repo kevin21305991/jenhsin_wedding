@@ -6,6 +6,7 @@
     const targetSection = document.querySelector(target);
     window.scrollTo({
       top: targetSection ? targetSection.offsetTop : 0,
+      left: 0,
       behavior: 'smooth',
     });
   }

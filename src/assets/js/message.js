@@ -325,10 +325,10 @@ function messageHandler(danmuStartDate) {
       const messageAside = $('.message-aside');
       const newTips = $('.new-tips');
 
-      function showSuccessTips() {
-        submitBtn.find('.success-tips').remove();
-        submitBtn.append('<div class="success-tips">已送出祝福</div>');
-        gsap.to(submitBtn.find('.success-tips'), {
+      function showSubmitTips(text, status = 'success') {
+        submitBtn.find('.submit-tips').remove();
+        submitBtn.append(`<div class="submit-tips ${status}">${text}</div>`);
+        gsap.to(submitBtn.find('.submit-tips'), {
           keyframes: {
             '0%': { opacity: '0', top: '0' },
             '33.33%': { opacity: '1', top: '-10px' },
@@ -344,11 +344,17 @@ function messageHandler(danmuStartDate) {
       }
 
       function submit() {
-        showSuccessTips();
+        const currentDate = new Date();
+        const targetDate = new Date('2023-11-11');
         const styleSelected = $('form input[type="radio"]:checked').length > 0;
         const inputtedName = $('form input#name').val() !== '';
         const inputtedMessage = $('form textarea#message').val() !== '';
         if (!styleSelected || !inputtedName || !inputtedMessage) return;
+        if (currentDate > targetDate) {
+          showSubmitTips('目前已無法獻上祝福', 'fail');
+          return;
+        }
+        showSubmitTips('已送出祝福');
         formHandler.sendMessage();
         $('form textarea').val('');
       }

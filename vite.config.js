@@ -1,7 +1,7 @@
 // vite.config.js
 import path from 'path';
 export default {
-  // 配置选项
+  // 配置選項
   base: './',
   root: 'src',
   build: {

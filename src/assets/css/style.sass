@@ -837,16 +837,19 @@ header
       &.submit
         position: relative
         background-color: #E26262
-        .success-tips
+        .submit-tips
           position: absolute
           top: -10px
           left: 50%
           transform: translate3d(-50%,-100%,0)
           color: #fff
-          background-color: #9CDFE9
           padding: 10px 15px
           border-radius: 6px
           white-space: nowrap
+          &.success
+            background-color: #9CDFE9
+          &.fail
+            background-color: #E26262
       &.view
         background-color: #BCBCBC
 
